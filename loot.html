@@ -1,0 +1,300 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cairn - Loot</title>
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: system-ui, sans-serif; background: #1c1a18; color: #f1ece4; min-height: 100vh; }
+  main { max-width: 640px; margin: 0 auto; padding: 20px 16px 40px; }
+  h1 { font-size: 22px; margin: 0 0 18px; text-align: center; letter-spacing: 1px; }
+  button { font: inherit; cursor: pointer; border: 0; border-radius: 10px; }
+  #decide { width: 100%; padding: 16px; font-size: 18px; font-weight: 700; background: #f1ece4; color: #1c1a18; }
+  #decide:active { transform: scale(.98); }
+  #decided { text-align: center; min-height: 28px; margin: 12px 0 18px; font-size: 16px; color: #d8d0c4; }
+  #decided b { color: #fff; }
+  .boxes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .box { padding: 22px 6px; font-size: 16px; font-weight: 800; color: #1c1a18; display: flex; flex-direction: column; align-items: center; gap: 6px; transition: transform .1s, box-shadow .2s; }
+  .box span.i { font-size: 34px; line-height: 1; }
+  .box:active { transform: scale(.95); }
+  .bronze { background: linear-gradient(160deg, #d8955a, #a45d2b); }
+  .prata  { background: linear-gradient(160deg, #e6e9ee, #9aa1ad); }
+  .ouro   { background: linear-gradient(160deg, #ffe07a, #cf9a14); }
+  .box.sugerida { box-shadow: 0 0 0 3px #fff, 0 0 18px 4px rgba(255,255,255,.55); animation: pulse 1s infinite alternate; }
+  @keyframes pulse { to { transform: scale(1.04); } }
+  #result { margin-top: 22px; }
+  .card { background: #2a2623; border-radius: 14px; padding: 16px 18px; border-left: 8px solid #888; }
+  .card.bronze { border-color: #c47a3f; background: #2a2623; }
+  .card.prata { border-color: #c9ced6; background: #2a2623; }
+  .card.ouro { border-color: #f0c238; background: #2a2623; }
+  .card .cat { font-size: 13px; text-transform: uppercase; letter-spacing: 1.5px; color: #b8aea0; }
+  .card .nome { font-size: 28px; font-weight: 800; margin: 4px 0; line-height: 1.15; }
+  .card .desc { color: #d8d0c4; line-height: 1.4; }
+  .card .steps { font-size: 13px; color: #9d9386; margin-top: 10px; }
+  .pop { animation: pop .25s ease-out; }
+  @keyframes pop { from { transform: scale(.92); opacity: .3; } to { transform: none; opacity: 1; } }
+  h2 { font-size: 14px; letter-spacing: 1.5px; text-transform: uppercase; color: #9d9386; margin: 28px 0 8px; display: flex; justify-content: space-between; align-items: center; }
+  h2 button { background: none; color: #9d9386; font-size: 12px; text-decoration: underline; }
+  #hist { list-style: none; margin: 0; padding: 0; }
+  #hist li { padding: 8px 10px; border-bottom: 1px solid #36312d; display: flex; gap: 10px; align-items: baseline; }
+  #hist .dot { width: 10px; height: 10px; border-radius: 50%; flex: none; }
+  #hist .dot.bronze { background: #c47a3f; } #hist .dot.prata { background: #c9ced6; } #hist .dot.ouro { background: #f0c238; }
+  #hist .c { color: #9d9386; font-size: 12px; min-width: 9ch; }
+</style>
+<link rel="stylesheet" href="cairn.css"><style>body{background:var(--paper);color:var(--ink);font-family:var(--font-ui);font-size:17px}
+h1{font-family:var(--font-display);font-weight:700;font-size:34px;letter-spacing:0}
+#decide{background:var(--accent);color:var(--accent-ink);font-family:var(--font-ui)}
+#decided,#decided b,.card .desc,.card .nome{color:var(--ink)}
+.card,.card.bronze,.card.prata,.card.ouro{background:var(--panel)}
+.card .cat,.card .steps,h2,h2 button,#hist .c{color:var(--ink);opacity:.7}
+#hist li{border-color:var(--rule)}</style></head>
+<body>
+<main>
+  <h1>⚔ CAIRN · LOOT</h1>
+
+  <button id="decide">🎲 Qual caixa? (2d6)</button>
+  <div id="decided"></div>
+
+  <div class="boxes">
+    <button class="box bronze" data-box="bronze"><span class="i">📦</span>Bronze</button>
+    <button class="box prata" data-box="prata"><span class="i">📦</span>Prata</button>
+    <button class="box ouro" data-box="ouro"><span class="i">📦</span>Ouro</button>
+  </div>
+
+  <div id="result"></div>
+
+  <h2>Histórico <button id="clear">limpar</button></h2>
+  <ul id="hist"></ul>
+</main>
+
+<script>
+const ARM_VAL = { "Couro": 1, "Cota de malha": 2, "Placas": 3 };
+const ARMADURA = [[3,null],[14,"Couro"],[19,"Cota de malha"],[20,"Placas"]];
+const ELMO_ESC = [[13,[]],[16,["Elmo"]],[19,["Escudo"]],[20,["Elmo","Escudo"]]];
+const ARMAS = [
+  [5,["Adaga","Porrete","Cajado"]],
+  [14,["Espada","Maça","Machado"]],
+  [19,["Arco","Besta","Funda"]],
+  [20,["Alabarda","Martelo de guerra","Machado de batalha","Espada grande"]]
+];
+const PESADAS = ["Alabarda","Martelo de guerra","Machado de batalha","Espada grande"];
+// d20 1..17 conhecidos; 18-20 ilegíveis no original -> rolar de novo
+const EXPEDICAO = ["Veneno","Algemas","Amuleto de proteção","Antitoxina","Armadilha grande","Óleo inflamável","Sedativo","Bastão (3 m)","Carrinho (volumoso)","Corda (12 m)","Bandagens (3 usos)","Luneta","Picareta","Gancho","Tocha","Saco grande","Lanterna"];
+const FERRAMENTAS = ["Ampulheta","Jogo de chá","Broca manual","Cola","Cinzel","Óleo inflamável","Giz","Graxa","Lixa de metal","Martelo","Pá","Panelas","Pé de cabra","Pinças","Pinos","Pregos","Rede","Selante","Serra","Vara de pesca"];
+const BUGIGANGAS = ["Apito","Baralho","Barbante","Bola de gude","Corneta","Dados","Espelho","Esponja","Garrafa","Incenso","Instrumento musical","Joias falsas","Lente","Pena e tinta","Perfume","Piche","Sabão","Sal","Sineta","Tinta"];
+
+// Magias (100) - nome|descrição
+const MAGIAS_RAW = `Acelerar|Sua velocidade de movimento é triplicada.
+Aderir|Um objeto é coberto em uma gosma extremamente pegajosa.
+Adormecer|Uma criatura que você pode ver cai em um sono leve.
+Alisar|Uma superfície em um raio de 9 metros se torna extremamente lisa e escorregadia.
+Alterar Clima|Você pode alterar o tipo de clima da região uma vez, mas não pode controlá-lo de outra forma.
+Amortecer Magia|Todos os efeitos mágicos próximos têm sua eficácia reduzida pela metade.
+Ancorar|Um fio forte brota de seus braços, fixando-se em dois pontos que estejam a até 15 metros de cada lado.
+Animar Objeto|Um objeto obedece seus comandos da melhor maneira possível.
+Antropomorfizar|Um animal ganha inteligência humana ou aparência humana por um dia.
+Ar Líquido|O ar ao seu redor se torna nadável.
+Arrombar|Uma fechadura mundana ou mágica próxima é desbloqueada sonoramente.
+Atrair|Dois alvos são fortemente atraídos como que magneticamente se estiverem a até 3 metros um do outro.
+Bagunçar|Duas criaturas que você pode ver trocam de lugar instantaneamente.
+Balbuciar|Uma criatura deve repetir em alto e bom som tudo o que você pensa. Do contrário, ela fica muda.
+Bugiganga|Uma versão de uma ferramenta ou item desenhado aparece diante de você e desaparece após um curto período de tempo.
+Caminhar nas Paredes|Você pode escalar superfícies como uma aranha.
+Caminhar no Espelho|Um espelho se torna um portal para outro espelho que você já tenha visto.
+Carbonizar|Um objeto mundano a sua escolha, até o tamanho de uma carroça, é transmutado em cinzas.
+Comandar|Um alvo obedece a um único comando de três palavras que não cause dano a ele.
+Compreender|Você se torna fluente em qualquer idioma por um curto tempo.
+Cone de Espuma|Espuma densa jorra de suas mãos, cobrindo o local alvo.
+Confundir|Uma criatura de sua escolha é incapaz de formar memórias de curto prazo enquanto durar o feitiço.
+Controlar Plantas|Plantas e árvores próximas obedecem a você e ganham a capacidade de se mover lentamente.
+Controle Temporal|O tempo diminui ou aumenta em 50% por 60 segundos, em uma bolha de 15 metros.
+Corrente Invisível|Dois alvos dentro de 3 metros um do outro não podem ser movidos mais do que 3 metros um do outro.
+Cubo|Você pode convocar ou banir um cubo de terra, pedra ou vidro de 1 metro de largura.
+Curar Ferimentos|Restaure 1d4 FOR de uma criatura que você pode tocar.
+Deslocar|Um objeto parece estar 5 m de sua posição atual.
+Desmembrar|Qualquer uma das partes do seu corpo pode ser removida e recolocada à vontade, sem ferimentos. Você ainda pode controlá-las pelo pensamento.
+Detectar Magia|Você pode ver ou ouvir auras mágicas próximas.
+Disfarce|Você pode alterar a aparência de um personagem à vontade, desde que permaneçam humanoides. As tentativas de duplicar outros personagens parecerão um pouco estranhas.
+Elasticidade|Seu corpo pode esticar-se até 5 metros.
+Empurrar/Puxar|Um alvo de qualquer tamanho é puxado diretamente para você ou empurrado diretamente para longe de você com a força que desejar, até a de um touro.
+Encantar|Uma criatura que você pode ver o trata como um amigo.
+Ensurdecer|Todas as criaturas próximas são ensurdecidas.
+Enxame|Você se torna um enxame de corvos, ratos, insetos ou peixes. Você só pode ser danificado por ataques explosivos.
+Escudo|Uma criatura que você toca fica protegida de ataques mundanos por um minuto.
+Esculpir Elementos|Qualquer material inanimado se comporta como argila em suas mãos.
+Esfera da Fraqueza|Uma esfera de 15 m de diâmetro que rouba parte da força dos alvos dentro dela. Os alvos se tornam privados dentro da esfera e possuem 0 (zero) PG.
+Esfera de Sombras|Uma esfera de escuridão total de 15 m de diâmetro aparece diante de você e pode ser controlada.
+Farejar|Você pode cheirar até mesmo os vestígios mais tênues de aromas.
+Fervura|Com um toque você faz a água ferver. É possível, e horripilante, matar uma criatura assim.
+Flor-de-Isca|Uma planta que emana intensamente qualquer aroma que você desejar brota do solo.
+Flutuador|Um disco de até 1 m de diâmetro paira no ar, sem atrito, 60 cm acima do solo. Pode suportar até 200 kg.
+Fobia|Uma criatura próxima fica com profundo pavor de um alvo de sua escolha.
+Forma Animal|Você e suas posses se transformam em um animal.
+Forma de Fumaça|Seu corpo se torna uma fumaça viva que você pode controlar.
+Forma Gosmenta|Você se torna uma geleia viva.
+Frenesi|Uma criatura próxima irrompe em um frenesi de violência.
+Ganância|Uma criatura desenvolve desejo irresistível de possuir um item visível de sua escolha.
+Hipnotizar|Uma criatura entra em transe e responderá com sinceridade a uma pergunta, tipo sim ou não, que você fizer.
+Identificar Passado|Você pode observar em sua mente uma cena de até 10 anos atrás do local onde um objeto tocado esteve.
+Iluminar|Uma luz flutuante se move conforme seu comando.
+Ilusão Auditiva|Você cria sons ilusórios que surgem de uma direção de sua escolha.
+Ilusão Visual|Cria uma ilusão visual a sua escolha, silenciosa mas que pode se mover, até o tamanho de uma sala.
+Invocar Ídolo|Uma estátua de pedra esculpida à sua vontade, até o tamanho de um cavalo, ergue-se do chão.
+Isca Mágica|Um objeto que você toca torna-se o alvo de qualquer feitiço próximo.
+Ler Mentes|Você pode ouvir os pensamentos superficiais de criaturas próximas.
+Levantar Espírito|O espírito de um cadáver próximo se manifesta e responderá a 1 pergunta.
+Levantar os Mortos|Faz erguer do solo ou local alvo um esqueleto que lhe servirá enquanto não for destruído. Ele é estúpido.
+Manipular Gravidade|Você pode mudar a direção da gravidade, mas apenas para você.
+Mania de Gude|Seus bolsos ficam cheios de bolinhas de vidro que se reabastecem a cada 30 segundos.
+Manto|Um manto invisível cai sobre o alvo que você toca, tornando-se igualmente invisível. O manto pode ser retirado à força.
+Mão Arcana|Projeta uma mão de energia tênue que pode ser manipulada pelo pensamento a até 9 metros de distância.
+Máscara|A aparência e a voz de um personagem tornam-se idênticas às de um outro personagem que você toca.
+Mente Vazia|Uma criatura alvo perde toda a sua memória até o pôr do sol.
+Miniaturizar|Uma criatura ou objeto que você toca é reduzida ao tamanho de um rato.
+Muitos Braços|Você ganha temporariamente dois braços extras.
+Nevoeiro|Uma névoa muito densa se espalha a partir de você e pode encher até 3 km.
+Objetificar|Você se torna qualquer objeto inanimado com o tamanho entre o de uma carroça e de uma agulha.
+Ódio|Uma criatura desenvolve um ódio profundo por outra criatura ou grupo e deseja destruí-los sem descanso.
+Olho Arcano|Você pode ver através de um globo ocular mágico flutuante que voa ao seu comando.
+Ouvir Sussurros|Você pode ouvir barulhos sutis e/ou distantes claramente.
+Pacificar|Uma criatura perto de você passa a ter aversão a qualquer mínima violência.
+Parede Elemental|Uma parede reta de gelo, fogo, pedra ou vento, de 15 metros de comprimento e 3 metros de altura se eleva do solo.
+Pegar Para Si|Um item visível se teletransporta para suas mãos.
+Perscrutar|Você pode ver através dos olhos de uma criatura que você tocou hoje.
+Portão|Um portal para um plano aleatório da Roda Planar se abre.
+Prisão Astral|Um objeto é congelado no espaço-tempo dentro de uma concha de cristal invulnerável.
+Proteger|Um círculo prateado de 15 m de diâmetro surge no chão. Escolha uma espécie ou alinhamento (Leal, Neutro, Caótico) que não possa cruzá-lo.
+Reflexo|Uma duplicata ilusória de você mesmo aparece e está sob seu controle.
+Repelir|Dois alvos são fortemente repelidos como que magneticamente um do outro.
+Salto|Você pula até 9 metros de altura, uma vez.
+Sentir|Escolha um tipo de objeto (chave, ouro, flecha, jarro, etc.). Você pode sentir o exemplar mais próximo dele.
+Serra Átomo|Uma lâmina em serra de até 1 m de diâmetro feita de pura energia cósmica gira diante de você e é controlada pelo pensamento. Ela pode cortar qualquer material mundano. Ignora armadura. Dura 1 turno.
+Sinalizador|Uma bola de energia brilhante dispara um rastro de luz no céu, revelando sua localização a um amigo ou inimigo.
+Soprar|Qualquer fonte de luz mundana que você pode ver é imediatamente apagada.
+Surto Primal|Uma criatura evolui rapidamente para uma versão futura de sua espécie.
+Teia|Seus pulsos disparam teias grossas.
+Telecinese|Você pode mover mentalmente 1 item com menos de 50 quilos.
+Telepatia|Duas criaturas podem ouvir os pensamentos uma da outra, não importa quão distantes estejam.
+Teleporte|Um objeto ou pessoa que você pode ver é transportado de um lugar para outro em um raio de 30 metros.
+Terremoto|O chão começa a tremer violentamente. Estruturas afetadas podem ser danificadas ou desmoronar.
+Toque Gélido|Uma espessa camada de gelo se espalha por uma superfície tocada, com até 9 metros de raio.
+Traspassar Visão|Você pode ver através de sólidos, paredes, sujeira, roupas, etc.
+Trocar Corpo|Sua mente troca de corpo com uma criatura que você toca. Se um corpo morre, o outro morre também.
+Vala|Um poço de até 9 metros de largura e 9 metros de profundidade se abre no solo.
+Vegetação|Um bosque de árvores e arbustos densos de até 15 metros de largura violentamente surgem do chão diante de você.
+Visão|Você controla completamente o que uma criatura vê.
+Visão Verdadeira|Você vê através de qualquer ilusão próxima.`;
+const MAGIAS = MAGIAS_RAW.split("\n").map(l => { const i = l.indexOf("|"); return { n: l.slice(0,i), d: l.slice(i+1) }; });
+
+/* ================= DADOS (rolagens) ================= */
+const d = n => 1 + Math.floor(Math.random() * n);
+const nd = (c, n) => { let s = 0; for (let i = 0; i < c; i++) s += d(n); return s; };
+const pick = a => a[Math.floor(Math.random() * a.length)];
+const byRange = (roll, table) => table.find(([max]) => roll <= max)[1];
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;" }[c]));
+
+
+
+/* ================= TABELAS DE LOOT ================= */
+const LOOT = { 2:"bronze",3:"bronze",4:"bronze",5:"bronze",6:"prata",7:"ouro",8:"prata",9:"bronze",10:"bronze",11:"bronze",12:"bronze" };
+const TABELA = {
+  bronze: ["Bugiganga","Bugiganga","Ferramenta","Ferramenta","Equipamento","Equipamento"],
+  prata:  ["Ferramenta","Ferramenta","Elmo ou Escudo","Armadura","Arma","Magia"],
+  ouro:   ["Rerola","Armadura","Elmo ou Escudo","Arma","Magia","Relíquia"]
+};
+const NOME_CAIXA = { bronze: "Caixa Bronze", prata: "Caixa Prata", ouro: "Caixa Ouro" };
+// Preencha com suas relíquias, ex.: [{ n: "Coroa Partida", d: "Descrição..." }]
+const RELIQUIAS = [];
+
+function resolverItem(cat) {
+  switch (cat) {
+    case "Bugiganga":  return { cat, nome: pick(BUGIGANGAS) };
+    case "Ferramenta": return { cat, nome: pick(FERRAMENTAS) };
+    case "Equipamento": {
+      let r; do { r = d(20); } while (r > EXPEDICAO.length);
+      const nome = EXPEDICAO[r - 1];
+      return { cat, nome, desc: /volumoso/.test(nome) ? "Item volumoso: ocupa 2 espaços." : "" };
+    }
+    case "Elmo ou Escudo": {
+      const elmo = d(2) === 1;
+      return { cat: elmo ? "Elmo" : "Escudo", nome: elmo ? "Elmo" : "Escudo", desc: "+1 de armadura." };
+    }
+    case "Armadura": {
+      let a; do { a = byRange(d(20), ARMADURA); } while (!a);
+      return { cat, nome: a, desc: "Armadura " + ARM_VAL[a] + "." };
+    }
+    case "Arma": {
+      const nome = pick(byRange(d(20), ARMAS));
+      return { cat, nome, desc: PESADAS.includes(nome) ? "Arma volumosa: ocupa 2 espaços (duas mãos)." : "" };
+    }
+    case "Magia": {
+      const m = pick(MAGIAS);
+      return { cat: "Livro de feitiço", nome: m.n, desc: m.d };
+    }
+    case "Relíquia": {
+      if (RELIQUIAS.length) { const r = pick(RELIQUIAS); return { cat, nome: r.n, desc: r.d || "" }; }
+      return { cat, nome: "Relíquia", desc: "Defina a relíquia (adicione sua tabela em RELIQUIAS no código)." };
+    }
+  }
+  return { cat, nome: "?" };
+}
+
+// abre uma caixa: rola d6 na tabela; no Ouro, "Rerola" rola de novo
+function abrirCaixa(tipo) {
+  const passos = [];
+  let cat;
+  for (let i = 0; i < 20; i++) {
+    const r = d(6);
+    cat = TABELA[tipo][r - 1];
+    passos.push({ r, cat });
+    if (cat !== "Rerola") break;
+  }
+  if (cat === "Rerola") { cat = "Relíquia"; } // segurança contra laço infinito
+  return { tipo, passos, item: resolverItem(cat) };
+}
+
+/* ================= UI ================= */
+let hist = [];
+let sugerida = null;
+
+function mostrarSugerida() {
+  document.querySelectorAll(".box").forEach(b => b.classList.toggle("sugerida", b.dataset.box === sugerida));
+}
+
+function decidir() {
+  const a = d(6), b = d(6), t = a + b;
+  sugerida = LOOT[t];
+  document.getElementById("decided").innerHTML =
+    `🎲 ${a} + ${b} = <b>${t}</b> → <b>${NOME_CAIXA[sugerida]}</b>`;
+  mostrarSugerida();
+}
+
+function abrir(tipo) {
+  const r = abrirCaixa(tipo);
+  sugerida = null; mostrarSugerida();
+  const it = r.item;
+  const steps = r.passos.map(p => `d6: ${p.r} (${esc(p.cat)})`).join(" → ");
+  document.getElementById("result").innerHTML =
+    `<div class="card ${tipo} pop">
+       <div class="cat">${NOME_CAIXA[tipo]} · ${esc(it.cat)}</div>
+       <div class="nome">${esc(it.nome)}</div>
+       ${it.desc ? `<div class="desc">${esc(it.desc)}</div>` : ""}
+       <div class="steps">${steps}</div>
+     </div>`;
+  hist.unshift({ tipo, cat: it.cat, nome: it.nome });
+  if (hist.length > 30) hist.pop();
+  renderHist();
+}
+
+function renderHist() {
+  document.getElementById("hist").innerHTML = hist.map(h =>
+    `<li><span class="dot ${h.tipo}"></span><span class="c">${esc(h.cat)}</span><span>${esc(h.nome)}</span></li>`).join("");
+}
+
+document.getElementById("decide").onclick = decidir;
+document.getElementById("clear").onclick = () => { hist = []; renderHist(); };
+document.querySelectorAll(".box").forEach(b => b.onclick = () => abrir(b.dataset.box));
+</script>
+<a class="cairn-home" href="index.html">← Ferramentas Cairn</a></body>
+</html>

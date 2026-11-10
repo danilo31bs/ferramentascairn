@@ -1,0 +1,8 @@
+/* Identidade visual compartilhada — Ferramentas Cairn (baseada na Edição Básica) */
+@import url("https://fonts.googleapis.com/css2?family=Alegreya:ital,wght@0,400;0,500;0,700;1,400&family=Alegreya+Sans:wght@400;500;700&family=UnifrakturCook:wght@700&display=swap");
+:root{--paper:#EDEFEA;--ink:#15191B;--rule:#B7BFB5;--accent:#2D5B4E;--accent-ink:#F4F6F1;--panel:#F7F8F4;
+--font-body:'Alegreya',Georgia,'Times New Roman',serif;--font-ui:'Alegreya Sans','Segoe UI',system-ui,sans-serif;--font-display:'UnifrakturCook','Old English Text MT',Georgia,serif;
+--bg:var(--paper);--fg:var(--ink);--line:var(--rule);--acc:var(--accent);--acc-fg:var(--accent-ink)}
+@media (prefers-color-scheme:dark){:root{color-scheme:dark;--paper:#0E1211;--ink:#E5E9E2;--rule:#2D3633;--accent:#9CCBB5;--accent-ink:#0E1211;--panel:#171D1B}}
+.cairn-home{position:fixed;right:12px;bottom:calc(12px + env(safe-area-inset-bottom,0px));z-index:99;font:500 15px 'Alegreya Sans',system-ui,sans-serif;background:#2D5B4E;color:#F4F6F1;padding:8px 14px;border-radius:999px;text-decoration:none;box-shadow:0 2px 8px rgba(0,0,0,.35)}
+@media print{.cairn-home{display:none}}

@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="pt-BR"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Gerador de Monstros</title>
+<style>
+@import url(cairn.css);:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*,*:before,*:after{box-sizing:inherit}
+body{margin:0;background:var(--bg);color:var(--fg);font:18px/1.4 var(--font-body);padding:16px}
+main{max-width:860px;margin:0 auto}
+h1{font:700 2.2rem var(--font-display);margin:.2em 0 .1em}
+.sub{margin:0 0 14px;opacity:.75;font-size:.9rem}
+.filters{background:var(--panel);border:2px solid var(--line);padding:14px;display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
+label{display:block;font-weight:bold;font-size:.85rem;text-transform:uppercase;letter-spacing:.05em;margin-bottom:4px}
+select,input{width:100%;font:inherit;font-family:var(--font-ui);padding:8px;border:1px solid var(--line);background:var(--bg);color:var(--fg)}
+button{font:inherit;font-family:var(--font-ui);cursor:pointer;border:2px solid var(--line);padding:10px 18px;background:var(--panel);color:var(--fg)}
+button.go{background:var(--acc);color:var(--acc-fg);border-color:var(--acc);font-weight:bold;letter-spacing:.06em;width:100%;margin-top:12px;font-size:1.05rem}
+.bar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:16px 0 4px}
+#out{display:grid;gap:18px;margin-top:12px}
+.wrap{overflow-x:auto}
+.sheet{background:#EDEFEA;color:#15191B;border:3px double #15191B;padding:18px 20px;max-width:520px;margin:0 auto;font-family:'Alegreya',Georgia,serif}
+.sheet h2{margin:0;font-size:1.5rem;border-bottom:2px solid #15191B;padding-bottom:4px}
+.sheet .cat{font-size:.78rem;text-transform:uppercase;letter-spacing:.08em;color:#2D5B4E;margin:4px 0 8px}
+.stats{display:flex;gap:6px;flex-wrap:wrap;margin:6px 0 10px}
+.st{flex:1 1 60px;text-align:center;border:1.5px solid #15191B;padding:4px 2px}
+.st b{display:block;font-size:1.35rem;line-height:1.1}.st span{font-size:.68rem;letter-spacing:.06em}
+.atk{font-weight:bold;margin:0 0 8px}
+.sheet ul{margin:0;padding-left:18px}.sheet li{margin:4px 0;font-size:.95rem}
+.dif{float:right;font-size:.75rem;border:1px solid #2D5B4E;color:#2D5B4E;padding:1px 6px;margin-top:6px}
+.foot{font-size:.7rem;opacity:.6;margin-top:10px;text-align:right}
+.vuln{color:#2D5B4E}
+.msg{text-align:center;opacity:.7;padding:20px}
+</style><link rel="stylesheet" href="cairn.css"></head><body><main>
+<h1>Gerador de Monstros</h1>
+<p class="sub">Fichas no formato do Bestiário: PG, Armadura, FOR, DES, VON, arma, peculiaridade e dano crítico.</p>
+<section class="filters">
+<div><label for="cat">Categoria</label><select id="cat"></select></div>
+<div><label for="qtd">Quantidade (1–6)</label><input id="qtd" type="number" min="1" max="6" value="1"></div>
+<div><label for="dif">Dificuldade</label><select id="dif">
+<option value="">Qualquer</option>
+<option value="0">Fácil (3–4 PG · comuns)</option>
+<option value="1">Média (5–7 PG · resistentes)</option>
+<option value="2">Difícil (8–11 PG · perigosos)</option>
+<option value="3">Mortal (12+ PG · grandes ameaças)</option></select></div>
+</section>
+<button class="go" id="gen">GERAR MONSTROS</button>
+<div class="bar" id="bar" hidden><button id="all">⬇ Exportar todas (PNG)</button><span id="st" class="sub"></span></div>
+<div id="out"><div class="msg">Escolha os filtros e clique em gerar.</div></div>
+</main>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script>
+const CATS={hum:"Humanoides",mor:"Mortos-vivos",bes:"Bestas",dra:"Dragões",abe:"Aberrações",lim:"Limos",inf:"Ínferos",con:"Construtos",gig:"Gigantes",fey:"Feéricos e Plantas",ele:"Elementais"};
+// nome|cat|DV|armadura|FOR|DES|VON|arma|dado|descrição|crítico
+const RAW=`Kobold|hum|0|0|6|12|8|Lança|6|Reptilianos covardes que armam armadilhas nas tocas.|Escapa e volta com o bando.
+Goblin|hum|1|0|8|14|8|Lança|6|Evitam combate, a menos que tenham vantagem numérica. Guardam bens roubados com a vida.|Rouba um item do alvo.
+Hobgoblin|hum|2|1|12|11|10|Espada|8|Soldados disciplinados em formação cerrada.|Alvo fica desarmado.
+Gnoll|hum|2|0|13|11|7|Machado|8|Hienas humanoides famintas e frenéticas.|Mordida: sangramento (1 dano/turno).
+Homem-Lagarto|hum|2|1|12|10|8|Lança|8|Caçadores dos pântanos que adoram devorar os mortos.|Alvo é arrastado para a água.
+Orc|hum|2|1|14|10|8|Machado grande|8|Saqueadores brutais que vivem da guerra.|Fúria: ataca de novo.
+Bugbear|hum|3|1|15|12|9|Maça|10|Emboscadores enormes e peludos, silenciosos como gatos.|Agarra e esmaga (d6 de DES).
+Cultista Encapuzado|hum|3|0|9|12|14|Cajado|8|Fanáticos que sugam poder de fluxos mágicos. Possui um Livro de Feitiço.|Suga a alma: 1d4 de VON permanente.
+Esqueleto|mor|1|1|10|10|3|Espada enferrujada|6|Ossos animados por magia sombria. Imune a veneno e medo.|Alvo fica paralisado de pavor.
+Zumbi|mor|2|0|13|5|3|Pancada|8|Lentos e implacáveis; só param se a cabeça for destruída.|Doença: -1d4 de FOR.
+Carniçal|mor|2|0|12|13|9|Garras|6|Devoradores de cadáveres de toque paralisante.|Paralisia por 1 turno.
+Sombra|mor|3|0|4|15|10|Toque gélido|6|Silhuetas vivas que drenam a força. Só magia as fere de verdade.|Drena 1d4 de FOR.
+Banshee|mor|5|0|3|13|16|Lamento|8|Espírito de lamento que vaga pelas ruínas.|Grito: alvo cai a 0 PG por pavor.
+Múmia|mor|5|1|15|6|12|Punhos|10|Guardiãs de tumbas amaldiçoadas, vulneráveis ao fogo.|Maldição de podridão (VON -1d4).
+Vampiro|mor|8|2|16|15|16|Garras e mordida|10|Nobres noturnos, charmosos e cruéis. Regeneram; temem estaca e sol.|Mordida drena 1d6 de FOR e cura o vampiro.
+Lich|mor|12|2|8|10|18|Toque necrótico|10|Magos que prenderam a alma em um filactério. Três Livros de Feitiço.|Arranca a alma: VON a 0.
+Lobo|bes|1|0|11|13|6|Mordida|6|Caçam em matilhas, cercando a presa.|Derruba o alvo.
+Rato Gigante|bes|0|0|5|13|4|Mordida|6|Enxames nos esgotos e masmorras.|Doença: -1 FOR.
+Aranha Gigante|bes|3|0|12|14|5|Presas|8|Tecem teias em cavernas escuras.|Veneno: -1d6 de DES.
+Javali Feroz|bes|2|1|14|9|6|Presas|8|Investe sem medo, mesmo ferido.|Investida: derruba e atropela.
+Urso-Coruja|bes|5|1|16|10|7|Garras e bico|10|Híbrido feroz de pelagem emplumada.|Abraço: agarra e causa d10 por turno.
+Basilisco|bes|6|2|14|8|10|Mordida|10|Réptil de olhar pétreo.|Petrificação gradual.
+Mantícora|bes|6|1|15|12|9|Cauda de espinhos|10|Leão alado de rosto humano e cauda farpada.|Espinhos: -1d6 de DES.
+Quimera|bes|8|1|16|12|9|Chifres, bocas e sopro de fogo|10|Cabeça de leão, bode e dragão.|Sopro de fogo em quem estiver perto.
+Pseudodragão|dra|1|1|6|14|10|Ferrão|6|Dragõezinho telepático e travesso.|Veneno: sono por 1 hora.
+Wyvern|dra|7|1|16|12|8|Ferrão e garras|10|Primo selvagem dos dragões, sem sopro.|Ferrão venenoso: -1d6 de FOR.
+Hidra|dra|8|1|17|10|6|Mordidas múltiplas|10|Cada cabeça cortada gera duas, a menos que cauterizada.|Engole o alvo.
+Dragão Jovem|dra|10|2|17|10|14|Mordida e sopro|12|Cobiçoso e vaidoso; adora tesouros.|Sopro elemental em todos à frente.
+Dragão Ancião|dra|18|3|18|9|17|Mordida, cauda e sopro|12|Lendário. Seu covil molda a paisagem ao redor.|Engole um adversário inteiro.
+Observador|abe|12|1|8|10|18|Raios oculares|10|Olho flutuante e paranoico, com dez raios mágicos.|Raio: petrifica, desintegra ou adormece.
+Devorador de Mentes|abe|8|1|10|12|18|Tentáculos|8|Mestre psíquico que se alimenta de cérebros.|Devora o cérebro: VON a 0.
+Mímico|abe|4|1|14|8|8|Pseudópodes adesivos|8|Finge ser baú, porta ou escada.|Fica preso e colado.
+Monstro Ferrugem|abe|3|1|8|12|6|Antenas|6|Devora metal; armaduras desmancham ao toque.|Arma ou armadura vira pó.
+Terror das Rochas|abe|8|2|17|10|8|Garras e olhar|10|Escava túneis e confunde com o olhar.|Olhar: alvo fica confuso.
+Gosma Cinzenta|lim|3|0|8|3|3|Toque ácido|6|Quase invisível; corrói metal.|Acido: destrói a armadura.
+Cubo Gelatinoso|lim|4|0|10|3|3|Engole|8|Limpa corredores inteiros, mantendo tesouros dentro.|Engole o alvo: d8 por turno.
+Pudim Negro|lim|7|0|14|3|3|Pseudópodes|10|Divide-se ao ser cortado.|Divide-se em dois.
+Diabrete|inf|2|0|6|15|12|Ferrão|6|Servo sarcástico de um mestre infernal.|Invisibilidade e veneno.
+Cão Infernal|inf|4|1|13|12|8|Mordida em chamas|8|Cão de pelagem negra e hálito de fogo.|Incendeia o alvo.
+Súcubo|inf|6|1|8|13|16|Toque|6|Sedutora, seduz e engana.|Beijo: alvo fica enfeitiçado.
+Diabo Barbado|inf|5|2|14|12|10|Glaive|10|Soldado raso do inferno.|Ferida infernal: sangramento.
+Balor|inf|18|3|18|11|16|Espada flamejante e chicote|12|Demônio colossal envolto em chamas.|Chicote arrasta o alvo para o fogo.
+Espantalho|con|2|0|10|8|4|Garras|6|Boneco vivo cheio de palha.|Grito aterroriza.
+Armadura Animada|con|2|2|12|8|3|Espada|8|Sentinela vazia que ataca invasores.|Esmaga: alvo fica caído.
+Cão de Pedra|con|3|2|14|1|8|Mordida|10|Guardiões imóveis. Não afetado por persuasão, mas adora mastigar relíquias.|Quebra um item do alvo.
+Gárgula|con|4|2|13|11|7|Garras|8|Estátuas vivas empoleiradas em torres.|Voa carregando o alvo.
+Golem de Carne|con|9|1|17|8|6|Punhos|10|Costurado de cadáveres; teme fogo e raios.|Esmaga: alvo fica agarrado.
+Golem de Pedra|con|12|3|18|6|3|Punhos|12|Guardião supremo, imune à maioria das magias.|Pisa: derruba e esmaga.
+Ogro|gig|4|1|16|8|7|Clava|10|Famintos e estúpidos, esmagam tudo.|Arremessa o alvo.
+Ettin|gig|6|1|16|9|7|Duas clavas|10|Gigante de duas cabeças que discutem entre si.|Ataque duplo.
+Troll|gig|7|1|15|12|7|Garras e mordida|8|Se mortos, regeneram, a menos que o cadáver seja queimado.|Crítico: musgo e galhos crescem nas feridas.
+Gigante da Colina|gig|8|1|18|8|8|Pedra arremessada|12|Gigante bruto e comilão.|Arremesso: derruba 2 alvos.
+Gigante de Gelo|gig|11|2|18|9|10|Machado de gelo|12|Reis da geada; moram em fortalezas geladas.|Congela: alvo imóvel 1 turno.
+Pixie|fey|0|0|3|17|12|Alfinete envenenado|6|Pequenina e brincalhona; truques e ilusões.|Sono profundo.
+Sátiro|fey|2|0|9|14|12|Chifres|6|Festeiros que enfeitiçam com música.|Canção: alvo dança sem parar.
+Bruxa Anciã|fey|5|0|8|10|15|Garras|8|Faz pactos cruéis. Livro de Feitiço (Hipnotizar, Escudo).|Maldição: -1d4 de VON.
+Elfo do Inverno|fey|6|1|8|13|14|Adaga de gelo|6|Lindos, amorais e longevos. Resistente à maioria das magias.|Congela a mão do alvo.
+Ent|fey|9|2|18|4|12|Punhos de raiz|12|Guardião ancestral da floresta. Vulnerável a fogo.|Agarra e arremessa.
+Bicho-Papão|fey|0|0|4|17|13|Garras|6|Trapaceiros peludos que adoram bugigangas. Têm nomes verdadeiros secretos.|Dá vida a um objeto hostil.
+Mephit|ele|1|0|6|14|8|Sopro|6|Elemental diminuto, irritante e mortal em bando.|Sopro de fogo, gelo ou poeira.
+Elemental|ele|6|2|15|10|8|Golpe elemental|10|Fúria bruta da terra, água, fogo ou ar.|Engole o alvo em elemento puro.`;
+const M=RAW.split("\n").map(l=>{const a=l.split("|");return{n:a[0],c:a[1],hd:+a[2],ar:+a[3],f:+a[4],d:+a[5],v:+a[6],w:a[7],dd:+a[8],t:a[9],cr:a[10]}});
+const PEC=["Procura seu humano de estimação perdido.","Coleciona dentes e botões brilhantes.","Só fala em rimas.","Tem pavor de gatos.","Veste uma coroa de latão, jura ser rei.","Paga dívidas, mas jamais perdoa insultos.","Cheira intensamente a cebola.","Cuida de um filhote que carrega nas costas.","Traz mapas de um tesouro que não existe.","Adora chá e só luta depois de tomar uma xícara.","Tem um olho de vidro que enxerga o que se esconde.","Teme a própria sombra."];
+const TIER=["Fácil","Média","Difícil","Mortal"];
+const tier=h=>h<=1?0:h<=4?1:h<=8?2:3;
+const $=i=>document.getElementById(i),R=a=>a[Math.random()*a.length|0];
+const j=(x,s)=>Math.max(3,Math.min(18,x+(s?(Math.random()*3|0)-1:0)));
+$("cat").innerHTML='<option value="">Todas</option>'+Object.entries(CATS).map(([k,v])=>`<option value="${k}">${v}</option>`).join("");
+let imgs=[];
+function card(m){
+ const pg=3+m.hd, die=Math.max(6,m.dd), t=tier(m.hd);
+ const el=document.createElement("div");el.className="wrap";
+ el.innerHTML=`<div class="sheet"><h2>${m.n}</h2><div class="cat">${CATS[m.c]} <span class="dif">${TIER[t]}</span></div>
+ <div class="stats"><div class="st"><b>${pg}</b><span>PG</span></div><div class="st"><b>${m.ar}</b><span>ARMADURA</span></div><div class="st"><b>${j(m.f,1)}</b><span>FOR</span></div><div class="st"><b>${j(m.d,1)}</b><span>DES</span></div><div class="st"><b>${j(m.v,1)}</b><span>VON</span></div></div>
+ <p class="atk">${m.w} (d${die}${m.hd>=8?" + d"+die+" rajada":""})</p>
+ <ul><li>${m.t}</li><li><i>Peculiaridade:</i> ${R(PEC)}</li><li><b>Dano crítico:</b> ${m.cr}</li></ul>
+ <div class="foot">PG = Pontos de Guarda · ${CATS[m.c]}</div></div>
+ <div style="text-align:center;margin-top:8px"><button class="ex">⬇ Exportar PNG</button></div>`;
+ el.querySelector(".ex").onclick=()=>exp(el.querySelector(".sheet"),m.n);
+ return el;
+}
+async function exp(node,name){
+ $("st").textContent="Gerando imagem…";
+ try{
+  const cv=await html2canvas(node,{scale:2,backgroundColor:null});
+  const blob=await new Promise(r=>cv.toBlob(r,"image/png"));
+  const dl=window.claude&&await claude.use("downloads");
+  const fn=name.toLowerCase().replace(/[^a-z0-9]+/g,"-")+".png";
+  if(dl)await dl.save({filename:fn,data:blob});
+  else{const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download=fn;a.click()}
+  $("st").textContent="Pronto.";
+ }catch(e){$("st").textContent=e&&e.code==="declined"?"Download cancelado.":"Não foi possível exportar."}
+}
+$("gen").onclick=()=>{
+ const c=$("cat").value,d=$("dif").value,n=Math.max(1,Math.min(6,+$("qtd").value||1));
+ const pool=M.filter(m=>(!c||m.c===c)&&(d===""||tier(m.hd)===+d));
+ const out=$("out");out.innerHTML="";$("st").textContent="";
+ if(!pool.length){out.innerHTML='<div class="msg">Nenhum monstro com esses filtros. Tente outra combinação.</div>';$("bar").hidden=true;return}
+ for(let i=0;i<n;i++)out.appendChild(card(R(pool)));
+ $("bar").hidden=n<2;
+};
+$("all").onclick=async()=>{for(const s of document.querySelectorAll(".sheet"))await exp(s,s.querySelector("h2").textContent)};
+</script><a class="cairn-home" href="index.html">← Ferramentas Cairn</a></body></html>

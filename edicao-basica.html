@@ -1,0 +1,1074 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style><style>.cairn-home{position:fixed;right:12px;bottom:calc(12px + env(safe-area-inset-bottom,0px));z-index:99;font:500 15px 'Alegreya Sans',system-ui,sans-serif;background:#2D5B4E;color:#F4F6F1;padding:8px 14px;border-radius:999px;text-decoration:none;box-shadow:0 2px 8px rgba(0,0,0,.35)}@media print{.cairn-home{display:none}}</style></head><body>
+<title>Cairn Edição Básica</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alegreya:ital,wght@0,400;0,500;0,700;1,400&family=Alegreya+Sans:wght@400;500;700&family=UnifrakturCook:wght@700&display=swap">
+<style>
+/* Layout: índice fixo à esquerda no desktop, barra de abas rolável no topo no celular; texto em coluna única de leitura, tabelas e listas d100 em colunas. */
+:root{
+  --paper:#EDEFEA;
+  --paper-2:#E1E5DD;
+  --ink:#15191B;
+  --ink-2:#4A5350;
+  --rule:#B7BFB5;
+  --accent:#2D5B4E;
+  --accent-ink:#F4F6F1;
+  --font-body:'Alegreya',Georgia,'Times New Roman',serif;
+  --font-ui:'Alegreya Sans','Segoe UI',system-ui,sans-serif;
+  --font-display:'UnifrakturCook','Old English Text MT',Georgia,serif;
+  --offset:1rem;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#0E1211;--paper-2:#171D1B;--ink:#E5E9E2;--ink-2:#A4AEA8;--rule:#2D3633;--accent:#9CCBB5;--accent-ink:#0E1211;color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#0E1211;--paper-2:#171D1B;--ink:#E5E9E2;--ink-2:#A4AEA8;--rule:#2D3633;--accent:#9CCBB5;--accent-ink:#0E1211;color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  background:var(--paper);color:var(--ink);
+  font:400 1.125rem/1.65 var(--font-body);
+  padding-block:0 4rem;
+  padding-left:max(16px,env(safe-area-inset-left,0px));
+  padding-right:max(16px,env(safe-area-inset-right,0px));
+  -webkit-text-size-adjust:100%;
+}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--paper);z-index:10}
+a{color:var(--accent);text-underline-offset:.18em}
+a:hover{text-decoration-thickness:2px}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.wrap{max-width:74rem;margin:0 auto}
+
+/* Cabeçalho */
+.masthead{padding-block:3rem 2.25rem;border-bottom:3px solid var(--ink);display:grid;gap:.5rem;max-width:44rem}
+.kicker{font:700 .85rem/1 var(--font-ui);letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin:0}
+.logo{font:700 clamp(4rem,14vw,7rem)/.95 var(--font-display);margin:.25rem 0 0;letter-spacing:.01em}
+.sub{font:500 1.5rem/1.2 var(--font-body);margin:0;color:var(--ink-2)}
+.lede{margin:1rem 0 0;max-width:38rem;text-wrap:pretty}
+.actions{display:flex;flex-wrap:wrap;align-items:center;gap:.75rem 1.25rem;margin-top:1.25rem}
+.btn{display:inline-flex;align-items:center;gap:.6rem;background:var(--accent);color:var(--accent-ink);padding:.7rem 1.15rem;font:700 1rem/1.2 var(--font-ui);text-decoration:none;border-radius:2px}
+.btn:hover{text-decoration:underline}
+.btn svg{width:1.1em;height:1.1em;flex:none}
+.actions small{font:400 .95rem var(--font-ui);color:var(--ink-2)}
+
+/* Estrutura */
+.layout{display:grid;grid-template-columns:14.5rem minmax(0,1fr);gap:3.5rem;padding-top:2rem}
+main{min-width:0;max-width:50rem}
+.toc{position:sticky;top:calc(env(safe-area-inset-top,0px) + 1rem);align-self:start;max-height:calc(100vh - 2rem);overflow-y:auto;font-family:var(--font-ui);font-size:1rem;line-height:1.3}
+.toc ul{list-style:none;margin:0;padding:0}
+.toc>ul>li{border-top:1px solid var(--rule);padding:.55rem 0}
+.toc a{text-decoration:none;color:var(--ink);display:block;padding:.15rem 0}
+.toc a:hover{color:var(--accent);text-decoration:underline}
+.toc a[aria-current="true"]{color:var(--accent);font-weight:700}
+.toc ul ul{margin:.25rem 0 0 .9rem}
+.toc ul ul a{font-size:.93rem;color:var(--ink-2)}
+.toc .dl{margin-top:1rem;padding-top:.9rem;border-top:2px solid var(--ink)}
+.toc .dl a{color:var(--accent);font-weight:700}
+
+section[id],[id].sub-s{scroll-margin-top:calc(var(--offset) + env(safe-area-inset-top,0px))}
+[id]{scroll-margin-top:calc(var(--offset) + env(safe-area-inset-top,0px))}
+
+/* Hierarquia tipográfica */
+h2{font:700 clamp(2.1rem,5vw,2.9rem)/1.1 var(--font-body);margin:0 0 1.25rem;padding-top:1.1rem;border-top:3px solid var(--ink);text-wrap:balance}
+h3{font:700 1.7rem/1.2 var(--font-body);margin:3rem 0 .75rem;text-wrap:balance}
+h4{font:700 .88rem/1.3 var(--font-ui);letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin:2rem 0 .4rem}
+section+section{margin-top:5rem}
+p{margin:0 0 1rem;text-wrap:pretty}
+ul,ol{margin:0 0 1.1rem;padding-left:1.4rem}
+li{margin-bottom:.4rem;padding-left:.2rem}
+li::marker{color:var(--accent)}
+b,strong{font-weight:700}
+dl{margin:0 0 1rem}
+dt{font:700 .88rem/1.3 var(--font-ui);letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-top:1.1rem}
+dd{margin:.15rem 0 0}
+.note{background:var(--paper-2);padding:1rem 1.15rem;margin:1.25rem 0;font-size:1.02rem}
+.note p:last-child{margin-bottom:0}
+.small{font-size:.95rem;color:var(--ink-2)}
+
+/* Tabelas */
+.scroll{overflow-x:auto;margin:1rem 0 1.5rem;-webkit-overflow-scrolling:touch}
+table{border-collapse:collapse;width:100%;min-width:28rem;font:400 1rem/1.45 var(--font-ui)}
+caption{caption-side:top;text-align:left;font:700 .88rem/1.3 var(--font-ui);letter-spacing:.1em;text-transform:uppercase;color:var(--accent);padding-bottom:.4rem}
+th{text-align:left;font:700 .8rem/1.2 var(--font-ui);letter-spacing:.09em;text-transform:uppercase;color:var(--ink-2);padding:.45rem .7rem .45rem 0;border-bottom:2px solid var(--ink)}
+td{padding:.5rem .7rem .5rem 0;border-bottom:1px solid var(--rule);vertical-align:top}
+td.n{width:3.2rem;font-weight:700;color:var(--accent);font-variant-numeric:tabular-nums}
+td b{font-weight:700}
+.wide{min-width:36rem}
+
+/* Listas d100 / d10 */
+ol.d,ol.names,ol.spells{list-style:none;padding:0;counter-reset:n}
+ol.d{columns:13rem;column-gap:2rem}
+ol.names{columns:16rem;column-gap:2rem}
+ol.d li,ol.names li{counter-increment:n;break-inside:avoid;display:flex;gap:.7rem;margin:0;padding:.18rem 0;border-bottom:1px dotted var(--rule);font:400 1rem/1.4 var(--font-ui)}
+ol.d li::before,ol.names li::before,ol.spells li::before{content:counter(n);font-weight:700;color:var(--accent);min-width:1.9rem;text-align:right;font-variant-numeric:tabular-nums;font-family:var(--font-ui)}
+ol.names li span{margin-left:auto;color:var(--ink-2)}
+.tr{display:grid;grid-template-columns:repeat(auto-fill,minmax(11rem,1fr));gap:1.5rem 1.75rem;margin:1rem 0 1.5rem}
+.tr h5{font:700 1.05rem/1.2 var(--font-body);margin:0 0 .4rem;padding-bottom:.35rem;border-bottom:2px solid var(--ink)}
+.tr ol.d{columns:auto}
+
+ol.spells{columns:23rem;column-gap:2.5rem}
+ol.spells li{counter-increment:n;break-inside:avoid;display:grid;grid-template-columns:2.1rem minmax(0,1fr);column-gap:.6rem;margin:0;padding:.75rem 0;border-bottom:1px solid var(--rule);font-size:1rem;line-height:1.5}
+ol.spells li::before{grid-row:1 / span 3;font-size:.95rem;padding-top:.15rem}
+ol.spells b{grid-column:2;font:700 1.1rem/1.25 var(--font-body)}
+ol.spells span{grid-column:2}
+ol.spells em{grid-column:2;color:var(--ink-2);font-style:italic}
+
+/* Pacotes */
+.packs{display:grid;grid-template-columns:repeat(auto-fit,minmax(14.5rem,1fr));gap:1.25rem;margin:1rem 0}
+.pack{border:1px solid var(--rule);padding:1rem 1.1rem .6rem;min-width:0}
+.pack h4{margin:0 0 .6rem;font:700 1.35rem/1.2 var(--font-body);letter-spacing:0;text-transform:none;color:var(--ink)}
+.pack ul{list-style:none;padding:0;font:400 .98rem/1.4 var(--font-ui)}
+.pack li{padding:.2rem 0;margin:0;border-bottom:1px dotted var(--rule)}
+.pack li:last-child{border-bottom:0}
+
+/* Princípios */
+.principles{display:grid;grid-template-columns:repeat(auto-fit,minmax(17rem,1fr));gap:.5rem 2.25rem;margin:1rem 0 1.5rem}
+.principles div{min-width:0;border-top:1px solid var(--rule)}
+.principles ul{font-size:1.02rem}
+
+/* Preços */
+ul.price{list-style:none;padding:0;columns:17rem;column-gap:2.25rem;font:400 1rem/1.4 var(--font-ui)}
+ul.price li{display:flex;justify-content:space-between;gap:1rem;break-inside:avoid;margin:0;padding:.3rem 0;border-bottom:1px dotted var(--rule)}
+ul.price b{color:var(--accent);font-variant-numeric:tabular-nums;white-space:nowrap}
+
+footer.src{margin-top:5rem;padding-top:1.5rem;border-top:3px solid var(--ink)}
+
+/* Mobile */
+@media (max-width:900px){
+  :root{--offset:4.6rem}
+  .layout{grid-template-columns:minmax(0,1fr);gap:1.25rem;padding-top:0}
+  .toc{top:env(safe-area-inset-top,0px);z-index:5;background:var(--paper);max-height:none;overflow:visible;border-bottom:1px solid var(--rule);margin-inline:calc(-1 * max(16px,env(safe-area-inset-left,0px))) calc(-1 * max(16px,env(safe-area-inset-right,0px)))}
+  .toc>ul{display:flex;overflow-x:auto;position:relative;gap:.25rem;padding:.35rem max(16px,env(safe-area-inset-left,0px));white-space:nowrap;scrollbar-width:none}
+  .toc>ul::-webkit-scrollbar{display:none}
+  .toc>ul>li{border:0;padding:0;flex:none}
+  .toc ul ul{display:none}
+  .toc a{padding:.55rem .75rem;font-size:.98rem}
+  .toc a[aria-current="true"]{box-shadow:inset 0 -3px 0 var(--accent)}
+  .toc .dl{margin:0;padding:0;border:0}
+  .masthead{padding-block:2rem 1.75rem}
+  h3{font-size:1.45rem;margin-top:2.4rem}
+  ol.d,ol.names{columns:2}
+  .tr ol.d{columns:auto}
+  ol.spells{columns:auto}
+}
+@media (max-width:420px){
+  ol.d,ol.names{columns:auto}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+
+<div class="wrap">
+<header class="masthead" id="topo">
+  <p class="kicker">Jogo de aventura old-school</p>
+  <h1 class="logo">Cairn</h1>
+  <p class="sub">Edição Básica em Português</p>
+  <p class="lede">Atravessar túneis subterrâneos, masmorras e ruínas decrépitas, florestas escuras e outros lugares terríveis. Criação de personagem aleatória e rápida, exploração tensa e recompensadora, combate caótico e letal.</p>
+  <div class="actions">
+    <a class="btn" href="https://rafaarruda.itch.io/cairn-basico-ptbr" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m0 0l-5-5m5 5l5-5M4 20h16"/></svg>
+      Baixar o material original
+    </a>
+    <small>PDF com ilustrações e ficha de personagem, no itch.io</small>
+  </div>
+</header>
+
+<div class="layout">
+<nav class="toc" aria-label="Índice">
+<ul>
+  <li><a href="#visao-geral" data-s="visao-geral">Visão geral e princípios</a></li>
+  <li><a href="#regras" data-s="regras">Regras</a>
+    <ul>
+      <li><a href="#personagens">Personagens dos jogadores</a></li>
+      <li><a href="#testes">Testes e risco</a></li>
+      <li><a href="#pdms">Personagens não jogadores</a></li>
+      <li><a href="#combate">Combate</a></li>
+    </ul></li>
+  <li><a href="#procedimentos" data-s="procedimentos">Procedimentos</a>
+    <ul>
+      <li><a href="#masmorras">Exploração de masmorras</a></li>
+      <li><a href="#ermos">Exploração de ermos</a></li>
+      <li><a href="#interludio">Interlúdio</a></li>
+    </ul></li>
+  <li><a href="#criacao" data-s="criacao">Criação de personagem</a>
+    <ul>
+      <li><a href="#nomes">Nomes</a></li>
+      <li><a href="#tracos">Traços</a></li>
+      <li><a href="#antecedentes">Antecedentes</a></li>
+      <li><a href="#armas">Armas e armaduras</a></li>
+      <li><a href="#equipamento-adicional">Equipamento adicional</a></li>
+    </ul></li>
+  <li><a href="#pacotes" data-s="pacotes">Pacotes por arquétipo</a></li>
+  <li><a href="#mercado" data-s="mercado">Mercado</a></li>
+  <li><a href="#feiticos" data-s="feiticos">Livros de feitiço</a></li>
+  <li><a href="#material-original" data-s="material-original">Créditos e original</a></li>
+  <li class="dl"><a href="https://rafaarruda.itch.io/cairn-basico-ptbr" target="_blank" rel="noopener">Baixar PDF original ↗</a></li>
+</ul>
+</nav>
+
+<main>
+
+<!-- VISÃO GERAL -->
+<section id="visao-geral">
+<h2>Visão geral e princípios</h2>
+<p><b>Cairn: Edição Básica</b> é um jogo de aventura sobre atravessar túneis subterrâneos, masmorras e ruínas decrépitas, florestas escuras e outros lugares terríveis. A criação de personagens é totalmente aleatória e rápida, a exploração é tensa e recompensadora, e o combate é caótico e letal.</p>
+<p>As regras e procedimentos aqui correspondem às do Guia do Jogador da Segunda Edição de Cairn, mas esta versão remove o cenário implícito e o processo de criação estruturado. Muito parecido com o Cairn original, mantém total compatibilidade com as aventuras da Segunda Edição de Cairn, mas oferece uma estrutura ainda mais minimalista e flexível para jogar no estilo old-school.</p>
+<p>Para exemplos de jogo, um relicário, um bestiário completo e muito mais, encontre o Guia do Guardião em <a href="https://cairnrpg.com" target="_blank" rel="noopener">cairnrpg.com</a>.</p>
+
+<h3>Visão geral</h3>
+<dl>
+<dt>Neutralidade</dt><dd>O papel do Guardião é atuar como um árbitro neutro e retratar as regras, situações, personagens do mestre (PdMs) e a narrativa com clareza.</dd>
+<dt>Sem classes</dt><dd>O papel ou as habilidades de um personagem não são limitados por uma única classe. Em vez disso, o equipamento que carregam e suas experiências definem sua especialidade.</dd>
+<dt>Morte</dt><dd>Os personagens podem ser resistentes, mas também são vulneráveis ao dano em suas muitas formas. A morte está sempre à espreita, mas nunca deve ser aleatória ou sem aviso.</dd>
+<dt>A ficção em primeiro lugar</dt><dd>Os dados nem sempre refletem a dificuldade de um obstáculo ou seu resultado. Em vez disso, o sucesso e o fracasso baseiam-se em elementos da cena e na ficção do mundo e são arbitrados pelo Guardião em diálogo com os jogadores.</dd>
+<dt>Crescimento</dt><dd>Os personagens são transformados por meio do avanço dentro do mundo, ganhando novas habilidades e capacidades ao sobreviver a eventos perigosos e superar obstáculos.</dd>
+<dt>Escolha do jogador</dt><dd>Os jogadores devem sempre entender o contexto e motivos por trás das escolhas que podem fazer, e as informações sobre os riscos potenciais e consequências na ficção devem ser fornecidas de forma livre e frequente.</dd>
+</dl>
+
+<h3>Princípios</h3>
+<p>O Guardião e os jogadores têm diretrizes que ajudam a promover uma experiência de jogo específica, definida pelo pensamento crítico, exploração e uma narrativa emergente.</p>
+
+<h4>Objetivos compartilhados</h4>
+<p>Os jogadores confiam uns nos outros para se envolverem com o cenário compartilhado, com os objetivos dos personagens e com os desafios do grupo. Portanto, o grupo geralmente trabalha em conjunto em prol de um objetivo.</p>
+
+<h3>Princípios para os jogadores</h3>
+<div class="principles">
+<div><h4>Agência</h4><ul>
+<li>Os atributos e os testes relacionados não definem seu personagem. Eles são ferramentas.</li>
+<li>Não pergunte apenas o que seu personagem faria; pergunte o que você faria também.</li>
+<li>Seja criativo com sua intuição, itens e conexões.</li></ul></div>
+<div><h4>Trabalho em equipe</h4><ul>
+<li>Busque o consenso dos outros jogadores antes de avançar precipitadamente.</li>
+<li>Mantenham-se alinhados sobre metas e limites, respeitando uns aos outros e realizando mais como um grupo do que sozinhos.</li></ul></div>
+<div><h4>Exploração</h4><ul>
+<li>Fazer perguntas e ouvir os detalhes é mais útil do que quaisquer estatísticas, itens ou habilidades que você tenha.</li>
+<li>Aceite a descrição do Guardião sem suspeitas, mas não tenha medo de buscar mais informações.</li>
+<li>Não há um único caminho correto a seguir.</li></ul></div>
+<div><h4>Diálogo</h4><ul>
+<li>Trate os PdMs como se fossem pessoas reais e confie em sua curiosidade para obter informações com segurança e resolver problemas.</li>
+<li>Você descobrirá que a maioria das pessoas é interessante e desejará conversar antes de se tornar violenta.</li></ul></div>
+<div><h4>Cautela</h4><ul>
+<li>Lutar é uma escolha e raramente é uma escolha sábia; considere se a violência é a melhor maneira de alcançar seus objetivos.</li>
+<li>Tente colocar as chances a seu favor e recue quando as coisas parecerem desfavoráveis.</li></ul></div>
+<div><h4>Planejamento</h4><ul>
+<li>Pense em maneiras de evitar seus obstáculos por meio de reconhecimento, sutileza e busca de fatos.</li>
+<li>Faça algumas pesquisas e pergunte sobre seus objetivos.</li></ul></div>
+<div><h4>Ambição</h4><ul>
+<li>Estabeleça metas e use seus parcos meios para dar passos à frente.</li>
+<li>Não espere nada. Conquiste sua reputação.</li>
+<li>Mantenha as coisas avançando e jogue para ver o que acontece.</li></ul></div>
+</div>
+
+<h3>Princípios para o Guardião</h3>
+<div class="principles">
+<div><h4>Informação</h4><ul>
+<li>Forneça informações úteis sobre o mundo do jogo à medida que os personagens o exploram.</li>
+<li>Os jogadores não precisam rolar dados para aprender sobre suas circunstâncias.</li>
+<li>Responda honestamente, descreva consistentemente e sempre os avise que eles podem continuar fazendo perguntas.</li></ul></div>
+<div><h4>Dificuldade</h4><ul>
+<li>Dê preferência ao contexto e ao realismo em vez de números e mecânicas.</li>
+<li>Se algo que os jogadores querem fazer for sinceramente impossível, nenhuma rolagem permitirá que eles façam isso.</li>
+<li>O que o jogador descreve e como ele aproveita a situação faz sentido? Deixe acontecer.</li>
+<li>Os testes cobrem grande parte das situações incertas e geralmente são tudo o que é necessário para ações arriscadas.</li></ul></div>
+<div><h4>Preparação</h4><ul>
+<li>O mundo do jogo é orgânico, maleável e aleatório.</li>
+<li>Use tabelas aleatórias e geradores para desenvolver situações, não histórias ou tramas.</li>
+<li>Os PdMs se lembram do que os PJs dizem e fazem, e como eles afetam o mundo.</li>
+<li>Os PdMs não querem morrer. Infunda interesse próprio e vontade de viver em cada personalidade.</li></ul></div>
+<div><h4>Foco narrativo</h4><ul>
+<li>A experiência emergente do jogo é o que importa, não a matemática ou as habilidades do personagem.</li>
+<li>Dê aos jogadores possibilidade de treinamento e missões pessoais para facilitar a melhoria e a especialização.</li>
+<li>Preste atenção às necessidades e desejos dos jogadores, depois coloque oportunidades realistas em seu caminho.</li>
+<li>Uma adaga em sua garganta o matará, independente de sua armadura cara e de seu treinamento impressionante.</li></ul></div>
+<div><h4>Perigo</h4><ul>
+<li>O mundo do jogo produz um risco real de dor e morte para os personagens dos jogadores.</li>
+<li>Quanto mais perigoso, mais óbvio. Sempre telegrafe o perigo, sem pegadinhas.</li>
+<li>Dê aos jogadores oportunidades de resolver problemas e interagir com o mundo e suas armadilhas.</li></ul></div>
+<div><h4>Escolha</h4><ul>
+<li>Dê sempre aos jogadores possibilidades de escolhas significativas dentro da ficção do jogo.</li>
+<li>Garanta que as ações dos personagens dos jogadores deixem sua marca no mundo do jogo.</li></ul></div>
+</div>
+</section>
+
+<!-- REGRAS -->
+<section id="regras">
+<h2>Regras</h2>
+
+<h3 id="personagens">Personagens dos jogadores</h3>
+
+<h4>Atributos</h4>
+<p>Os Personagens dos Jogadores (PJs) possuem três Atributos:</p>
+<ul>
+<li><b>Força (FOR):</b> usada para testes que exigem poder físico, como levantar portões, entortar grades, resistir a veneno, etc.</li>
+<li><b>Destreza (DES):</b> usada para testes que exigem equilíbrio, velocidade, reflexos, esquiva, escalada, furtividade, etc.</li>
+<li><b>Força de Vontade (VON):</b> usada para testes para persuadir, enganar, interrogar, intimidar, charmar, provocar, manipular magias, etc.</li>
+</ul>
+<p>Atributos não são descritores universais. Um personagem com FOR baixa não é necessariamente fraco sem esperança; ele ainda pode tentar levantar uma porta pesada ou sobreviver a uma luta mortal! Seu risco é simplesmente maior.</p>
+
+<h4>Perda de atributo</h4>
+<ul>
+<li>Se um PJ sofrer dano fora de combate, ele deve receber dano em um Atributo, geralmente FOR.</li>
+<li>Se a FOR de um PJ for reduzida a 0, ele morre. Se sua DES for reduzida a 0, ele fica paralisado. Se sua VON for reduzida a 0, ele fica delirante. A perda completa de DES e VON torna o personagem incapaz de agir até ser restaurado por meio de descanso prolongado ou meios extraordinários.</li>
+</ul>
+
+<h4>Guarda</h4>
+<ul>
+<li>A Guarda reflete a habilidade de um personagem de evitar danos em combate.</li>
+<li>Essa medida não indica a saúde ou fortitude de um personagem, nem ele a perde por muito tempo. Veja Cura &amp; Recuperação.</li>
+</ul>
+
+<h4>Cura &amp; recuperação</h4>
+<ul>
+<li>Descansar por alguns momentos e beber água restaura a Guarda perdida, mas pode deixar o grupo exposto. Bandagens podem estabilizar um personagem que sofreu dano crítico.</li>
+<li>A perda de atributo (veja Dano Crítico) geralmente pode ser restaurada com uma semana de descanso, facilitada por um curandeiro ou outra fonte apropriada de conhecimento.</li>
+<li>Alguns serviços de cura são gratuitos, enquanto meios mágicos ou especializados podem ter um custo.</li>
+</ul>
+
+<h4>Armadura</h4>
+<ul>
+<li>Antes de calcular o dano à Guarda, subtraia o valor de Armadura do alvo do resultado das rolagens de dano.</li>
+<li>Escudos e armaduras fornecem uma defesa bônus (ex.: +1 Armadura), mas apenas enquanto o item é segurado ou vestido. Alguns também podem fornecer benefícios adicionais, dependendo da ficção.</li>
+<li>Um PJ, PdM ou monstro não pode ter mais de 3 de Armadura.</li>
+</ul>
+
+<h4>Inventário</h4>
+<ul>
+<li>Os personagens têm um total de 10 espaços de inventário, mas só podem carregar quatro ou cinco itens confortavelmente sem a ajuda de sacos, mochilas, cavalos, etc.</li>
+<li>Cada PJ começa com uma Mochila que pode acomodar até seis espaços de itens ou Fadiga. Carroças, cavalos ou mulas podem fazer uma grande diferença na quantidade que um PJ pode levar em uma aventura. Mercenários também podem ser pagos para carregar equipamentos.</li>
+<li>O inventário é abstrato, dependendo apenas da ficção julgada pelo Guardião. Qualquer um que carregue um inventário cheio (ou seja, preenchendo todos os 10 espaços) tem sua Guarda reduzida a 0. Um personagem não pode preencher mais de dez espaços.</li>
+</ul>
+
+<h4>Espaços de inventário</h4>
+<ul>
+<li>A maioria dos itens ocupa um espaço, a menos que indicado de outra forma.</li>
+<li>Itens miúdos não ocupam nenhum espaço. Itens volumosos ocupam dois espaços.</li>
+<li>Uma bolsa de moedas no valor inferior a 100 PO é miúda e não ocupa espaço.</li>
+</ul>
+
+<h4>Exaustão &amp; fadiga</h4>
+<ul>
+<li>Um PJ que carece de uma necessidade crucial (como comida ou descanso) está Exaurido. Qualquer pessoa Privada por mais de um dia adiciona uma Fadiga ao seu inventário, uma para cada dia. Um PJ Exaurido não pode recuperar Guarda, Atributos ou espaços de itens perdidos por Fadiga.</li>
+<li>Um PJ também pode ser forçado a adicionar Fadiga após conjurar magias ou devido a eventos na ficção. Cada Fadiga ocupa um espaço e dura até que o PJ consiga se recuperar (como com uma noite inteira de descanso em um local seguro).</li>
+<li>Se um personagem for forçado a adicionar Fadiga, mas não tiver espaços livres, ele deve largar um item do seu inventário.</li>
+</ul>
+
+<h3 id="testes">Testes &amp; risco</h3>
+
+<h4>Testes (ou salvaguarda)</h4>
+<ul>
+<li>Um teste é sempre uma rolagem para evitar resultados negativos de escolhas arriscadas (ex.: teste sua Destreza para evitar a lâmina da armadilha). Personagens rolam um d20 e comparam o resultado ao atributo apropriado. Se rolarem igual ou abaixo desse atributo, têm sucesso. Caso contrário, falham. Um 1 é sempre sucesso, e um 20 é sempre falha.</li>
+<li>Se dois oponentes tentam superar um ao outro, quem estiver em maior risco deve fazer o teste.</li>
+<li>Se dois personagens precisam agir juntos, quem estiver em maior risco deve testar (geralmente o personagem com o menor Atributo relevante).</li>
+</ul>
+<p class="small">A expressão traduz o termo original em inglês, <i>Save</i>. O jogador brasileiro pode optar tanto por Teste como por Salvaguarda. O importante é saber que, mecanicamente, é uma jogada de dados para evitar o perigo e superar o risco, e não uma condição de ação.</p>
+
+<h4>Dado do destino</h4>
+<ul>
+<li>Opcionalmente, role 1d6 sempre que o resultado de um evento for incerto ou para simular um elemento de aleatoriedade e sorte.</li>
+<li>Uma rolagem de 4 ou mais geralmente favorece os PJs, enquanto uma rolagem de 3 ou menos normalmente significa má sorte para os PJs.</li>
+</ul>
+
+<h3 id="pdms">Personagens não jogadores</h3>
+<h4>Mercenários &amp; contratados</h4>
+<ul>
+<li>Grupos de aventureiros podem recrutar mercenários e contratar ajudantes, confiando em suas habilidades únicas, conhecimento e treinamento para auxiliar nas expedições.</li>
+<li>Para criar um mercenário ou contratado, escolha um papel apropriado na tabela de Mercenários e Contratados no <a href="#mercado">Mercado</a>. Role 3d6 para cada atributo e 1d6 para sua Guarda. Dê a eles o equipamento adequado à sua função e role nas tabelas de Traços de Personagem para detalhá-los.</li>
+<li>Alternativamente, siga o processo de <a href="#criacao">Criação de Personagem</a>, mas selecione o histórico, nome e equipamento apropriados para o personagem.</li>
+</ul>
+
+<h3 id="combate">Combate</h3>
+
+<h4>Rodadas</h4>
+<ul>
+<li>Uma Rodada equivale a cerca de dez segundos no tempo do jogo e prossegue com cada lado se revezando. Cada rodada começa com qualquer PJ que seja capaz de agir, seguido por seus oponentes. O resultado das ações de cada lado ocorre simultaneamente.</li>
+<li>Durante a primeira rodada do combate, cada PJ deve passar em um teste de DES para conseguir agir. Circunstâncias especiais, habilidades, itens ou capacidades podem anular esse requisito. PJs que falharem no teste perdem o turno nesta rodada.</li>
+<li>Em seguida, seus oponentes agem, e a primeira rodada termina. A rodada seguinte começa com os PJs agindo, seguidos pelos oponentes, e assim por diante até que o combate termine com um dos lados derrotado ou em fuga.</li>
+</ul>
+
+<h4>Ações</h4>
+<ul>
+<li>No seu turno, um personagem pode se mover até 12 metros e realizar até uma ação. Isso pode ser conjurar uma magia, atacar, mover-se uma segunda vez ou outra ação razoável.</li>
+<li>A cada rodada, os PJs declaram o que vão fazer antes da rolagem dos dados. Se um personagem tentar algo arriscado, o Guardião pede um teste para os jogadores ou PdMs envolvidos (sempre quem estiver mais em risco, não há testes resistidos).</li>
+</ul>
+
+<h4>Ataque &amp; dano</h4>
+<ul>
+<li>O atacante rola seu dado de arma e subtrai a armadura do alvo, causando o dano restante na Guarda do oponente. Ataques em combate sempre acertam automaticamente.</li>
+<li>Se múltiplos atacantes focarem no mesmo oponente, role todos os dados de dano e mantenha apenas o maior resultado único.</li>
+<li>Todas as ações são declaradas antes de serem resolvidas. Se um ataque levar a Guarda de um PJ exatamente a 0 (zero), consulte a tabela de <a href="#cicatrizes">Cicatrizes</a> para ver como eles são afetados de forma única.</li>
+</ul>
+
+<h4>Modificadores de ataque</h4>
+<ul>
+<li>Se o ataque for feito em uma posição de desvantagem (como com cobertura ou mãos amarradas), o ataque fica <b>Prejudicado</b>, e o atacante deve rolar 1d4 de dano, ignorando o dado normal da arma. Ataques desarmados sempre causam 1d4 de dano.</li>
+<li>Se a luta ocorrer em uma posição de vantagem (como contra um oponente indefeso ou mediante uma manobra ousada), o ataque fica <b>Aprimorado</b>, permitindo rolar 1d12 em vez do dado normal.</li>
+<li>Ataques com o atributo <b>Rajada</b> afetam todos os alvos na área determinada, rolando separadamente para cada personagem afetado. Isso abrange desde explosões reais até o sopro de um dragão ou o impacto de um meteorito. Se não tiver certeza de quantos alvos são afetados, role o dado de dano para descobrir.</li>
+<li>Se atacar com duas armas ao mesmo tempo, role ambos os dados e mantenha o maior resultado único (representado com um sinal de adição, ex.: d8+d8).</li>
+</ul>
+
+<h4>Dano crítico</h4>
+<ul>
+<li>Qualquer dano que reduza a Guarda de um alvo abaixo de zero é subtraído de sua FOR pelo montante de dano excedente. O alvo deve então fazer imediatamente um teste de FOR usando sua nova pontuação para evitar o Dano Crítico. Com um sucesso, o alvo continua na luta (embora com FOR reduzida) e deve continuar fazendo testes de dano crítico ao sofrer dano novamente.</li>
+<li>Qualquer PJ que sofra Dano Crítico não pode fazer nada além de rastejar fracamente, lutando pela vida. Se for auxiliado (como com bandagens), irá se estabilizar. Se não for tratado, ele morre em uma hora. PdMs e monstros que falharem em um teste de Dano Crítico são considerados mortos, a critério do Guardião. Além disso, alguns inimigos terão habilidades ou efeitos especiais acionados quando seu alvo falha no teste de Dano Crítico.</li>
+</ul>
+
+<h4>Morte de personagem</h4>
+<ul><li>Quando um personagem morre, o jogador deve criar um novo personagem ou assumir o controle de um mercenário. Eles se juntam ao grupo imediatamente para reduzir o tempo ocioso.</li></ul>
+
+<h4>Destacamentos</h4>
+<ul>
+<li>Grandes grupos de combatentes semelhantes lutando juntos são tratados como um único Destacamento. Quando um destacamento sofre Dano Crítico, ele fica desestruturado ou significativamente enfraquecido. Quando chega a 0 FOR, é destruído.</li>
+<li>Ataques de indivíduos contra destacamentos ficam prejudicados (excluindo dano de explosão). Ataques de destacamentos contra indivíduos ficam aprimorados e causam dano de explosão.</li>
+</ul>
+
+<h4>Retirada</h4>
+<ul><li>Fugir de uma situação terrível sempre exige um teste de DES bem-sucedido, assim como um destino seguro para o qual correr.</li></ul>
+
+<h4>Moral</h4>
+<ul>
+<li>Os inimigos devem passar em um teste de VON para não fugir quando sofrem a primeira baixa e, novamente, quando perdem metade do seu número.</li>
+<li>Alguns grupos podem usar a VON do líder no lugar da sua. Inimigos solitários devem testar quando sua Guarda é reduzida a 0.</li>
+<li>A moral não afeta PJs.</li>
+</ul>
+
+<h4>Ataques à distância</h4>
+<ul>
+<li>Armas de ataque à distância podem visar qualquer inimigo perto o suficiente para ver o branco de seus olhos. Ataques contra alvos especialmente distantes ficam Prejudicados.</li>
+<li>A munição não é rastreada, a menos que seja especificado de outra forma.</li>
+</ul>
+
+<h3 id="cicatrizes">Cicatrizes</h3>
+<ul>
+<li>Se o dano em um PJ reduzir sua Guarda a exatamente 0 (zero), verifique o resultado na tabela abaixo com base na quantidade de Guarda perdida no ataque. Por exemplo, se um PJ for de 3 de Guarda para 0, olharia a entrada 3 (Esmurrado).</li>
+<li>Alternativamente, ao ser reduzido a 0 (zero) de Guarda, você pode rolar na tabela abaixo usando o mesmo dado que causou o dano.</li>
+</ul>
+<div class="scroll"><table class="wide">
+<thead><tr><th>Guarda perdida</th><th>Resultado</th></tr></thead>
+<tbody>
+<tr><td class="n">1</td><td><b>Cicatriz Duradoura:</b> role 1d6. 1: Pescoço, 2: Mãos, 3: Olho, 4: Peito, 5: Pernas, 6: Orelha. Role 1d6. Se o total for maior que sua Guarda máxima, pegue o novo resultado.</td></tr>
+<tr><td class="n">2</td><td><b>Golpe Abalador:</b> você está desorientado e abalado. Descreva como recobra o foco. Role 1d6. Se o total for maior que sua Guarda máxima, pegue o novo resultado.</td></tr>
+<tr><td class="n">3</td><td><b>Esmurrado:</b> você voa longe e cai de cara no chão, sem ar. Você fica exaurido até descansar por algumas horas. Em seguida, role 1d6 e adicione esse valor à sua Guarda máxima.</td></tr>
+<tr><td class="n">4</td><td><b>Membro Quebrado:</b> role 1d6. 1-2: Perna, 3-4: Braço, 5: Costela, 6: Crânio. Uma vez consertado, role 2d6. Se o total for maior que sua Guarda máxima, pegue o novo resultado.</td></tr>
+<tr><td class="n">5</td><td><b>Doente:</b> você é afligido por uma infecção nojenta e desconfortável. Ao superar, role 2d6. Se o total for maior que sua Guarda máxima, pegue o novo resultado.</td></tr>
+<tr><td class="n">6</td><td><b>Pancada na Cabeça:</b> role 1d6. 1-2: FOR, 3-4: DES, 5-6: VON. Role 3d6. Se o total for maior que o seu atributo atual, pegue o novo resultado.</td></tr>
+<tr><td class="n">7</td><td><b>Incapacitado:</b> você mal consegue se mover até obter ajuda séria e descansar. Após a recuperação, role 3d6. Se o total for maior que sua DES máxima, pegue o novo resultado.</td></tr>
+<tr><td class="n">8</td><td><b>Surdo:</b> você não consegue ouvir nada até encontrar ajuda extraordinária. Apesar disso, faça um teste de VON. Se você passar, aumente sua VON máxima em 1d4.</td></tr>
+<tr><td class="n">9</td><td><b>Cérebro Afetado:</b> alguma parte oculta de sua psique é solta. Role 3d6. Se o total for maior que sua VON máxima, pegue o novo resultado.</td></tr>
+<tr><td class="n">10</td><td><b>Decepado:</b> um apêndice é arrancado, mutilado ou inutilizado. (O Guardião dirá qual.) Em seguida, faça um teste de VON. Se você passar, aumente sua VON máxima em 1d6.</td></tr>
+<tr><td class="n">11</td><td><b>Ferida Mortal:</b> você está exaurido e fora de ação. Você morre em uma hora, a menos que seja curado. Após a recuperação, role 2d6. Pegue o novo resultado como sua Guarda máxima.</td></tr>
+<tr><td class="n">12</td><td><b>Condenado:</b> a morte pareceu próxima, mas de alguma forma você sobreviveu. Se o seu próximo teste contra dano crítico falhar, você morre horrivelmente. Se passar, role 3d6. Se o total for maior que sua Guarda máxima, pegue o novo resultado.</td></tr>
+</tbody></table></div>
+</section>
+
+<!-- PROCEDIMENTOS -->
+<section id="procedimentos">
+<h2>Procedimentos</h2>
+
+<h3 id="masmorras">Exploração de masmorras</h3>
+
+<h4>O básico</h4>
+<ul>
+<li>O ciclo de exploração de masmorras (veja abaixo) é dividido em uma série de Turnos, Ações e suas consequências.</li>
+<li>No seu turno, um personagem pode se mover uma distância igual ao perímetro de luz de sua tocha (cerca de 12 metros) e realizar uma ação. Os jogadores podem usar sua ação para se mover até três vezes essa distância, embora isso aumente a chance de acionar uma rolagem na tabela de Eventos de Masmorra.</li>
+<li>O Guardião deve apresentar informações óbvias sobre uma área e seus perigos livremente e sem custo. Mover-se rapidamente ou sem cautela pode aumentar a chance de encontrar um monstro errante, acionar uma armadilha ou acionar uma rolagem na tabela de Eventos de Masmorra.</li>
+</ul>
+<p class="small">Embora o termo “masmorra” seja usado aqui, pode significar qualquer local perigoso (ruínas, fazendas, local de aventura, etc.).</p>
+
+<h4>Ciclo de exploração de masmorras</h4>
+<ul>
+<li>O Guardião descreve os arredores do grupo e quaisquer perigos imediatos (combate, armadilhas, surpresas, etc.). Os jogadores então declaram os movimentos e ações pretendidas de seus personagens.</li>
+<li>O Guardião resolve as ações de cada personagem simultaneamente, juntamente com quaisquer ações que já estejam em andamento. Lembre-se, o Dado de Destino pode ser uma ferramenta útil sempre que o Guardião estiver em dúvida!</li>
+<li>Os jogadores registram qualquer perda de recursos e quaisquer novas condições (ex.: uso de item, exaustão, fadiga, etc). O ciclo então recomeça. Se apropriado, o Guardião deve rolar na Tabela de Eventos de Masmorra. Mantenha o bom senso em mente ao interpretar os resultados!</li>
+</ul>
+
+<h4>Eventos de masmorra</h4>
+<p>Explorar uma masmorra é sempre perigoso, e o tempo deve sempre ser pesado contra o risco de despertar os habitantes do local, perigos naturais e coisas piores. Quando o grupo:</p>
+<ul>
+<li>passa mais de um ciclo de masmorra em uma única sala ou local;</li>
+<li>move-se rápido ou aleatoriamente por uma sala;</li>
+<li>move-se para uma nova área, nível ou zona;</li>
+<li>cria um distúrbio barulhento,</li>
+</ul>
+<p>então role na tabela a seguir:</p>
+<div class="scroll"><table>
+<thead><tr><th>1d6</th><th>Evento</th><th>Descrição</th></tr></thead>
+<tbody>
+<tr><td class="n">1</td><td><b>Encontro</b></td><td>Role em uma tabela de encontros. Possivelmente hostil. (Veja Reações.)</td></tr>
+<tr><td class="n">2</td><td><b>Sinal</b></td><td>Uma pista, rastro, pegada, covil abandonado, cheiro, vítima, etc., é descoberto.</td></tr>
+<tr><td class="n">3</td><td><b>Ambiente</b></td><td>Os arredores mudam ou se agravam. A água sobe, os tetos desabam, um ritual se aproxima da conclusão, etc.</td></tr>
+<tr><td class="n">4</td><td><b>Perda</b></td><td>As tochas se apagam, uma magia contínua falha, etc. O grupo deve resolver o efeito antes de prosseguir.</td></tr>
+<tr><td class="n">5</td><td><b>Exaustão</b></td><td>O grupo deve descansar (acionando outra rolagem nesta tabela), adicionar uma Fadiga ou consumir uma ração.</td></tr>
+<tr><td class="n">6</td><td><b>Silêncio</b></td><td>O grupo é deixado em paz (e seguro) por enquanto.</td></tr>
+</tbody></table></div>
+
+<h4>Ações</h4>
+<ul>
+<li>Ações são quaisquer atividades não passivas, como procurar armadilhas, forçar a abertura de uma porta, ouvir em busca de perigo, desarmar uma armadilha, envolver um inimigo em combate, conjurar uma magia, esquivar-se de uma armadilha, fugir, descansar, etc.</li>
+<li>Algumas ações têm regras especiais (veja abaixo), enquanto outras podem levar vários turnos para serem concluídas.</li>
+<li>Ações barulhentas ou perceptíveis também podem desencadear um encontro com os habitantes da masmorra.</li>
+</ul>
+
+<h4>Procurando</h4>
+<ul>
+<li>Um personagem pode gastar um turno realizando uma busca exaustiva em um objeto ou local em uma área, revelando qualquer tesouro oculto relevante, armadilhas, portas secretas, etc.</li>
+<li>Salas maiores e terrenos de masmorra difíceis ou complexos podem levar alguns turnos para serem revistados adequadamente.</li>
+<li>Procurar em uma sala primeiro é uma maneira mais segura de explorar a masmorra, mas tem um custo alto: tempo.</li>
+</ul>
+
+<h4>Descansando</h4>
+<ul>
+<li>Um personagem pode gastar um turno descansando para restaurar toda a Guarda.</li>
+<li>Uma fonte de luz e um local seguro são necessários para descansar. O perigo presente ou iminente torna o descanso impossível.</li>
+<li>Descansar não restaura Fadiga, pois é impossível Acampar com segurança em uma masmorra.</li>
+</ul>
+
+<h4>Pânico</h4>
+<ul>
+<li>Um personagem que está cercado por inimigos, envolto pela escuridão ou enfrentando seus maiores medos pode sentir pânico. Um teste de VON normalmente é necessário para evitar perder o controle e entrar em pânico.</li>
+<li>Quando em pânico, o personagem deve fazer um teste de VON para superar sua condição como uma ação no seu turno.</li>
+<li>Um personagem em pânico tem 0 (zero) de Guarda, não age na primeira rodada de combate e todos os seus ataques ficam prejudicados.</li>
+</ul>
+
+<h4>Elementos de masmorra: luz</h4>
+<ul>
+<li>Tochas e outras fontes de luz radial iluminam 12 metros da masmorra e, além disso, apenas um contorno difuso de objetos. As tochas duram até serem apagadas por um personagem ou pelo ambiente.</li>
+<li>Uma tocha pode ser acesa 3 vezes antes de se degradar permanentemente. Uma lanterna pode ser reacesa 6 vezes por lata de óleo, mas requer mais espaços de inventário.</li>
+<li>Personagens sem uma fonte de luz podem sofrer de pânico até que sua situação seja remediada.</li>
+</ul>
+
+<h4>Elementos de masmorra: portas</h4>
+<ul>
+<li>Portas e entradas podem estar trancadas, emperradas ou totalmente bloqueadas. Personagens podem tentar forçar uma porta aberta (ou travá-la) usando os recursos disponíveis (estacas, cola) ou através de habilidade pura.</li>
+<li>A ordem de marcha do grupo determina quem é mais impactado pelo que quer que esteja além de uma porta.</li>
+<li>Um personagem pode detectar, por meio de observação cuidadosa (ouvindo, cheirando, etc.), sinais de vida e outros perigos através de portas e paredes próximas.</li>
+</ul>
+
+<h4>Elementos de masmorra: armadilhas</h4>
+<ul>
+<li>Um personagem cauteloso deve receber toda e qualquer informação que lhe dê a oportunidade de evitar o acionamento de uma armadilha. Um personagem desavisado acionará uma armadilha de acordo com a ficção ou, caso contrário, terá uma chance de 2 em 6.</li>
+<li>Armadilhas geralmente podem ser detectadas ao procurar cuidadosamente em uma sala.</li>
+<li>O dano de armadilhas é retirado dos Atributos (geralmente FOR ou DES) e não da Guarda. Armaduras podem reduzir o dano, mas apenas se aplicável (ex.: um escudo não reduziria o dano de um gás nocivo).</li>
+</ul>
+
+<h3 id="ermos">Exploração de ermos</h3>
+
+<h4>Turnos de vigília</h4>
+<ul>
+<li>Um dia é dividido em três Vigílias, chamadas de manhã, tarde e noite.</li>
+<li>Cada personagem pode escolher uma Ação de Ermos por turno de vigília.</li>
+<li>Se os personagens se separarem, cada grupo é tratado como uma entidade independente.</li>
+</ul>
+
+<h4>Pontos</h4>
+<ul>
+<li>Destinos potenciais em um mapa são chamados de pontos.</li>
+<li>Um ou mais turnos de vigília podem ser necessários para viajar entre dois pontos em um mapa, dependendo do caminho, terreno, clima e condição do grupo.</li>
+<li>O grupo tem uma ideia aproximada dos desafios envolvidos para chegar ao seu destino, mas raramente quaisquer detalhes específicos.</li>
+</ul>
+
+<h4>Duração da viagem</h4>
+<p>O tempo de viagem em Cairn é contado em turnos de vigília, divididos em três segmentos de oito horas por dia. No entanto, como a maioria dos grupos opta por passar o terceiro turno de vigília do dia descansando, pode-se usar “dias” como abreviação para o tempo de viagem.</p>
+<p>Para determinar a distância entre dois pontos, combine todas as penalidades das tabelas de dificuldade de caminho, terreno e clima, levando em consideração quaisquer alterações a esses elementos ao longo da rota. Para viagens via vias navegáveis, consulte a dificuldade do terreno circundante. Para terrenos especialmente vastos, atribua uma penalidade de até +2 turnos de vigília à jornada.</p>
+<p>O clima, terreno, escuridão, membros do grupo feridos e outros obstáculos podem impactar a viagem ou até mesmo torná-la impossível! Em alguns casos, o grupo pode precisar adicionar Fadiga ou gastar recursos para manter seu ritmo. Montarias, guias e mapas podem aumentar a velocidade de viagem do grupo ou até mesmo anular certas penalidades.</p>
+
+<h4>Dificuldade do caminho</h4>
+<div class="scroll"><table>
+<thead><tr><th>Caminho</th><th>Penalidade</th><th>Chance de se perder</th></tr></thead>
+<tbody>
+<tr><td><b>Estradas</b></td><td>Nenhuma</td><td>Nenhuma</td></tr>
+<tr><td><b>Trilhas</b></td><td>+1 turno de vigília</td><td>2 em 6</td></tr>
+<tr><td><b>Ermos</b></td><td>+2 turnos de vigília</td><td>3 em 6</td></tr>
+</tbody></table></div>
+<div class="scroll"><table>
+<thead><tr><th>Distância do caminho</th><th>Penalidade</th></tr></thead>
+<tbody>
+<tr><td><b>Curto</b></td><td>+1 turno de vigília</td></tr>
+<tr><td><b>Médio</b></td><td>+2 turnos de vigília</td></tr>
+<tr><td><b>Longo</b></td><td>+3 turnos de vigília</td></tr>
+</tbody></table></div>
+
+<h4>Dificuldade do terreno</h4>
+<div class="scroll"><table class="wide">
+<thead><tr><th>Dificuldade</th><th>Terreno</th><th>Penalidade</th><th>Fatores</th></tr></thead>
+<tbody>
+<tr><td><b>Fácil</b></td><td>Planícies, planaltos, vales</td><td>Nenhuma</td><td>Áreas seguras para descanso, companheiros de viagem, boa visibilidade.</td></tr>
+<tr><td><b>Difícil</b></td><td>Florestas, desertos, colinas</td><td>+1 turno de vigília</td><td>Animais selvagens, inundações, falta de equipamentos, pedras caindo, abrigos inseguros, armadilhas de caçadores.</td></tr>
+<tr><td><b>Perigoso</b></td><td>Montanhas, selvas, pântano</td><td>+2 turnos de vigília</td><td>Areia movediça, lama sugadora, trepadeiras sufocantes, água suja, plantas e animais venenosos.</td></tr>
+</tbody></table></div>
+
+<h4>Clima</h4>
+<p>A cada dia, o Guardião deve rolar na tabela de clima para a estação apropriada. Se o resultado “Extremo” for rolado duas vezes seguidas, o clima se torna “Catastrófico”. Uma rajada se torna um furacão, uma tempestade inunda o vale, etc.</p>
+<div class="scroll"><table>
+<thead><tr><th>d6</th><th>Primavera</th><th>Verão</th><th>Outono</th><th>Inverno</th></tr></thead>
+<tbody>
+<tr><td class="n">1</td><td>Agradável</td><td>Agradável</td><td>Ameno</td><td>Ameno</td></tr>
+<tr><td class="n">2</td><td>Ameno</td><td>Agradável</td><td>Ameno</td><td>Desagradável</td></tr>
+<tr><td class="n">3</td><td>Ameno</td><td>Ameno</td><td>Desagradável</td><td>Severo</td></tr>
+<tr><td class="n">4</td><td>Desagradável</td><td>Desagradável</td><td>Severo</td><td>Severo</td></tr>
+<tr><td class="n">5</td><td>Severo</td><td>Severo</td><td>Severo</td><td>Extremo</td></tr>
+<tr><td class="n">6</td><td>Extremo</td><td>Extremo</td><td>Extremo</td><td>Extremo</td></tr>
+</tbody></table></div>
+
+<h4>Tipos de clima</h4>
+<div class="scroll"><table class="wide">
+<thead><tr><th>Clima</th><th>Efeito</th><th>Exemplos</th></tr></thead>
+<tbody>
+<tr><td><b>Agradável</b></td><td>Condições favoráveis para viagem.</td><td>Céu limpo, ensolarado.</td></tr>
+<tr><td><b>Ameno</b></td><td>Condições favoráveis para viagem.</td><td>Nublado, com brisa.</td></tr>
+<tr><td><b>Desagradável</b></td><td>Adicione uma Fadiga ou adicione um turno de vigília à jornada.</td><td>Ventos fortes, pancadas de chuva, calor sufocante, ar frio.</td></tr>
+<tr><td><b>Severo</b></td><td>Adicione uma Fadiga ou adicione +1 turno. Aumente a Dificuldade do terreno em um passo.</td><td>Tempestades, raios, chuva, solo lamacento.</td></tr>
+<tr><td><b>Extremo</b></td><td>Adicione uma Fadiga e adicione +1 turno. Aumente a Dificuldade do terreno em um passo.</td><td>Nevascas, ventos congelantes, inundações, deslizamentos de terra.</td></tr>
+<tr><td><b>Catastrófico</b></td><td>A maioria dos grupos não consegue viajar sob estas condições.</td><td>Tornados, maremotos, furacão, erupção vulcânica.</td></tr>
+</tbody></table></div>
+
+<h4>Ciclo de exploração de ermos</h4>
+<ul>
+<li>O Guardião descreve o ponto ou região atual no mapa e como o caminho, clima, terreno ou condição do grupo podem afetar a velocidade da viagem. O grupo traça ou ajusta um determinado curso em direção ao seu destino.</li>
+<li>Cada membro do grupo escolhe uma única Ação de Ermos. O Guardião narra os resultados e então rola na tabela de Eventos de Ermos. O grupo responde aos resultados.</li>
+<li>Os jogadores e o Guardião registram qualquer perda de recursos e novas condições (ex.: uso de tocha, exaustão, etc), e o ciclo se repete.</li>
+</ul>
+
+<h4>Eventos de ermos</h4>
+<div class="scroll"><table class="wide">
+<thead><tr><th>1d6</th><th>Evento</th><th>Descrição</th></tr></thead>
+<tbody>
+<tr><td class="n">1</td><td><b>Encontro</b></td><td>Role em uma tabela de encontros para aquele tipo de terreno ou local. Não se esqueça de rolar para reações de PdMs, se aplicável.</td></tr>
+<tr><td class="n">2</td><td><b>Sinal</b></td><td>O grupo descobre uma pista, rastro ou indicação de um encontro próximo, localidade, característica oculta ou informações sobre uma área próxima.</td></tr>
+<tr><td class="n">3</td><td><b>Ambiente</b></td><td>Uma mudança no clima ou terreno.</td></tr>
+<tr><td class="n">4</td><td><b>Perda</b></td><td>O grupo se depara com uma escolha que lhes custa um recurso (rações, ferramentas, etc), tempo ou esforço.</td></tr>
+<tr><td class="n">5</td><td><b>Exaustão</b></td><td>O grupo encontra uma barreira, forçando esforço, cuidado ou atrasos. Isso pode significar gastar tempo extra (e uma Ação de Ermos adicional) ou adicionar Fadiga ao inventário do PJ para representar suas dificuldades.</td></tr>
+<tr><td class="n">6</td><td><b>Descoberta</b></td><td>O grupo encontra comida, tesouro ou outros recursos úteis. O Guardião pode escolher, em vez disso, revelar a característica primária da área.</td></tr>
+</tbody></table></div>
+
+<h4>Elementos dos ermos: noite</h4>
+<ul>
+<li>O grupo pode optar por viajar durante a noite e descansar durante o dia, mas viajar à noite é muito mais lento e traiçoeiro!</li>
+<li>Viajar à noite é sempre mais perigoso! O Guardião deve rolar duas vezes na tabela de Eventos de Ermos.</li>
+<li>Algum terreno e clima podem ser mais fáceis de atravessar à noite (deserto, por exemplo). O Guardião deve equilibrar esses desafios junto com quaisquer outros.</li>
+</ul>
+
+<h4>Elementos dos ermos: sono</h4>
+<ul>
+<li>O último turno de vigília do dia é tipicamente reservado para a ação Acampar.</li>
+<li>Os personagens normalmente precisam dormir todos os dias. Qualquer coisa além de uma pequena interrupção pode anular ou cancelar os benefícios do sono.</li>
+<li>Se o grupo pular a ação Acampar, cada um adiciona uma Fadiga ao seu inventário e fica exaurido. Além disso, viajar com privação de sono aumenta a Dificuldade do terreno em um passo (ex.: Fácil se torna Difícil).</li>
+</ul>
+
+<h4>Elementos dos ermos: luz</h4>
+<ul>
+<li>Tochas e outras fontes de luz iluminam 12 metros à frente do grupo, mas além disso fornecem apenas um contorno difuso dos objetos.</li>
+<li>Personagens sem uma fonte de luz podem sofrer de pânico até que a situação seja remediada.</li>
+<li>Condições ambientais (rajadas repentinas de vento, poeira, água, etc.) podem facilmente apagar uma tocha.</li>
+<li>Uma tocha pode ser acesa 3 vezes antes de degradar.</li>
+<li>Uma lanterna pode ser reacesa indefinidamente, mas requer uma lata de óleo separada (6 usos).</li>
+</ul>
+
+<h4>Ações nos ermos: viajar</h4>
+<ul>
+<li>A viagem começa. Locais óbvios, características e terreno das áreas próximas são revelados de acordo com sua distância. Esta ação é tipicamente tomada por todo o grupo como um só.</li>
+<li>O grupo rola 1d6 para ver se se perde no caminho. Este risco pode aumentar ou diminuir dependendo da Dificuldade do caminho, mapas, habilidades do grupo e guias.</li>
+<li>Se perdidos, o grupo pode precisar gastar uma Ação de Ermos para recuperar o caminho. Caso contrário, o grupo chega ao próximo ponto ao longo de sua rota.</li>
+<li>Lembre-se de comparar os resultados de se perder com a Dificuldade do caminho relevante.</li>
+</ul>
+
+<h4>Ações nos ermos: explorar</h4>
+<ul>
+<li>Um ou mais membros do grupo procuram em uma grande área, buscando por características ocultas, observando à frente ou pisando com cuidado.</li>
+<li>Um Local (abrigo, vila, caverna, etc.) ou Característica (gêiser, rio subterrâneo, navio encalhado, etc.) é descoberto.</li>
+<li>A ação de Viajar ainda é necessária para sair da área atual, mesmo que ela tenha sido completamente explorada.</li>
+</ul>
+
+<h4>Ações nos ermos: forragear</h4>
+<ul>
+<li>Um ou mais membros do grupo podem caçar, pescar ou buscar alimentos, coletando 1d4 Rações (3 usos cada). A chance de uma recompensa maior aumenta com cada participante adicional (ex.: 1d4 se torna 1d6, até um máximo de 1d12).</li>
+<li>A experiência ou o equipamento relevante também pode aumentar a recompensa coletada.</li>
+<li>O grupo pode encontrar casas e pequenos vilarejos, gastando ouro e um turno de vigília inteiro para se reabastecer.</li>
+</ul>
+
+<h4>Ações nos ermos: acampar</h4>
+<ul>
+<li>O grupo interrompe a viagem ou exploração para armar acampamento nos Ermos. Cada membro do grupo (e suas montarias) consome uma Ração. Um rodízio de vigias é definido para que o grupo possa dormir sem ser molestado.</li>
+<li>Um grupo menor pode precisar arriscar dormir sem guarda ou alternar quem dorme melhor ao longo de vários dias.</li>
+<li>Membros do grupo que puderam descansar removem toda Fadiga de seu inventário.</li>
+</ul>
+
+<h3 id="interludio">Interlúdio</h3>
+<p>Entre as sessões de jogo, os jogadores podem se envolver em uma variedade de atividades, como pesquisa, busca por pistas, aprimoramento de habilidades ou construção de relacionamentos com pessoas, guildas e instituições.</p>
+<p>Um PJ é limitado a uma Ação de Interlúdio por vez. Essas ações não podem ser realizadas em condições inseguras ou enquanto um personagem estiver em recuperação. Um personagem não pode realizar uma ação se isso colocar sua segurança em risco.</p>
+
+<h4>Marcos</h4>
+<p>Para atividades que exigem várias etapas, o Guardião atribui de 1 a 5 Marcos para os jogadores acompanharem o progresso.</p>
+<p>Cada Marco representa uma tarefa abrangente e não interativa. O Guardião pode apresentar estratégias diferentes para atingir esses objetivos, cada uma com Marcos distintos. Dependendo do desenrolar dos eventos no jogo, o Guardião também tem o poder de introduzir novos Marcos ou descartar os existentes.</p>
+
+<h4>Custos</h4>
+<p>Os PJs podem completar Marcos individuais realizando uma Ação de Interlúdio e pagando seu respectivo Custo. Se um personagem não conseguir pagar o Custo, ele pode ter que encontrar alguma outra maneira de atingir seu objetivo. Alguns exemplos de Custo:</p>
+<ul>
+<li><b>Ouro:</b> pagamento direto de ouro do inventário de um personagem.</li>
+<li><b>Recursos:</b> custos não monetários, como bens materiais, itens comuns específicos e assim por diante.</li>
+<li><b>Reputação:</b> apostar no renome, personalidade, presença, conexões sociais de um personagem, etc.</li>
+<li><b>Perda:</b> oferecer algo específico e único. Um dedo, uma alma, uma Relíquia, etc.</li>
+</ul>
+<p>Alguns Custos podem ser reduzidos ou desconsiderados por meio de habilidades do personagem, conexões ou força de vontade.</p>
+<p>Por exemplo, um PJ já pode ter adquirido a reputação necessária para obter acesso a uma instituição de renome e, assim, o custo é reduzido. Por outro lado, outro personagem pode não ter a mesma sorte e deve confiar na força de sua personalidade em vez disso. Neste caso, o Guardião deve declarar o risco (um banimento permanente de entrada, uma perda de reputação, etc.). O PJ então faz um teste de VON; com um sucesso, o custo é reduzido ou evitado inteiramente.</p>
+
+<h4>Ações de interlúdio</h4>
+<p>As atividades a seguir representam algumas das Ações de Interlúdio mais comuns que um jogador pode escolher. O Guardião também pode criar ações personalizadas com base nas necessidades do jogo.</p>
+
+<h4>Pesquisa</h4>
+<p>Um PJ investiga uma questão sobre um conhecimento perdido ou esquecido, a localização de um item perdido, o paradeiro de um PdM importante e assim por diante. Para realizar esta ação, o jogador deve ter uma pergunta clara que gostaria de responder e uma Fonte de conhecimento no mundo do jogo com a qual seu personagem possa interagir. Se o PJ não tiver uma Fonte, ele pode gastar uma Ação de Inatividade tentando encontrar uma. Não há garantia de que ele será bem-sucedido.</p>
+<p>Uma vez que uma pergunta é feita e uma Fonte apropriada foi identificada, o Guardião deve fornecer quaisquer Marcos e Custos associados.</p>
+<p><b>Perguntas.</b> Como sempre, a pergunta deve vir de uma experiência que ocorreu durante o jogo. Exemplos:</p>
+<ul><li>“Onde fica o Templo Perdido de East Nipoor?”; “Quem na Cidade da Fortuna pode saber como arrombar um cofre antigo?”; “Onde posso encontrar a cura para a doença dos cachos?”</li></ul>
+<p><b>Fontes.</b> Uma Fonte é uma pessoa, lugar, facção ou entidade que detém parte ou a totalidade da resposta que o personagem busca. Eles podem ser PdMs, Facções, espíritos ou até mesmo outros PJs. Exemplos:</p>
+<ul>
+<li>Kewr, a Boca, um contato frequente do Conclave dos Mercadores. Apesar do excelente relacionamento com esta facção, pedir ajuda em uma atividade ilícita pode ter um custo alto.</li>
+<li>Um Woodwose que faz sua casa nas profundezas da Floresta das Facas. O grupo o encontrou em uma expedição anterior e a reunião não terminou bem. Ainda assim, dizem que ele conhece a natureza de cada erva e suas propriedades curativas.</li>
+<li>O Templo das Marionetes, uma trupe de circo nômade que viajou por terras conhecidas e desconhecidas. O grupo ajudou um de seus membros durante a Chuva de Fogo, quando até mesmo as criaturas do Bosque se preparavam para fugir de suas casas. Se alguém já ouviu falar de lugares esquecidos, são eles.</li>
+</ul>
+
+<h4>Treinamento</h4>
+<p>Um personagem pode melhorar suas habilidades com um item ou capacidade, com resultados narrativos ou mecânicos claros. Eles podem estar interessados em causar mais dano com uma arma específica, diminuir suas chances de se perder em mau tempo ou aprender a ler os idiomas dos antigos.</p>
+<p>Um PJ pode gastar várias Ações de Inatividade treinando com uma arma específica, melhorando suas habilidades semana a semana. Ou eles podem precisar viajar para a casa de um sábio distante, melhorando a si mesmos por meio de estudos curtos, mas intensos.</p>
+<p>O jogador deve descrever com precisão o que gostaria de melhorar e um Mestre com quem possa treinar. E, claro, a inspiração do personagem para melhorar deve vir de uma experiência no jogo. O Guardião deve fornecer quaisquer Marcos e Custos associados. Exemplos:</p>
+<ul>
+<li><b>Aparar com as duas mãos:</b> ao lutar com uma mão livre, a Guarda de um PJ aumenta temporariamente em 1d4. O grupo contratou uma mercenária das Terras Cráteras, cujos lutadores enfatizam a evasão de ataques inimigos. Ela concordou em treinar qualquer um que possa derrotá-la em combate corpo a corpo.</li>
+<li><b>Herbologia:</b> dados os ingredientes adequados, um PJ pode criar um Unguento Curativo (restaura 4 FOR) como uma Ação de Inatividade. Depois de receber cuidados de um velho herborista nas Clareiras Verdejantes, o PJ ferido pediu para ser treinado nas artes de cura. O Mestre concordou, mas pediu que coletassem três ervas raras antes que o treinamento pudesse começar.</li>
+<li><b>Mestre das trutas:</b> ao realizar a ação de Suprir, as Rações coletadas perto de fontes de água doce fria aumentam um passo (ex.: 1d4 se torna 1d6). O grupo escoltou uma naturalista encalhada nos famosos e terríveis Ermos de Prata em segurança de volta à cidade. Como agradecimento, ela se ofereceu para treinar um PJ para identificar e capturar um peixe de lago comum que frequenta águas mais frias.</li>
+</ul>
+
+<h4>Fortalecendo laços</h4>
+<p>Um personagem promove uma conexão com um PdM ou Facção no mundo do jogo. Primeiro, eles devem identificar a entidade com a qual desejam fortalecer os laços, bem como uma intenção específica (ex.: construir confiança, consertar uma amizade, buscar afiliação em uma Facção, formar uma aliança e assim por diante). O Guardião então fornece medidas concretas (descritas como Marcos e Custos) que o PJ pode realizar para avançar no relacionamento. Com cada Marco concluído, o Guardião descreve como o relacionamento do PJ cresceu ou mudou. Exemplos:</p>
+<ul>
+<li>Depois de retornar de uma incursão malsucedida nas Raízes, um PJ descobre que, sem saber, trouxe um clandestino: um devorador sem olhos, recém-nascido. Eles decidem manter a criatura e treiná-la em segredo.</li>
+<li>Durante uma sessão de jogo, um PJ se torna amigo de um agente da Ordem do Elmo. Impressionado com os valores da Ordem, o PJ pergunta quais são os requisitos para ingressar.</li>
+<li>Um agente de uma facção poderosa morre durante a Batalha dos Sapos enquanto estava sob os cuidados do grupo. Agora, os responsáveis desejam fornecer reparação, para que o grupo possa mais uma vez realizar tarefas para essa facção.</li>
+</ul>
+</section>
+
+<!-- CRIAÇÃO DE PERSONAGEM -->
+<section id="criacao">
+<h2>Criação de personagem</h2>
+<ol>
+<li>Role para o primeiro e último <a href="#nomes">Nome</a> do seu personagem, bem como a Idade (2d20+10).</li>
+<li>Role para os <a href="#atributos">Atributos e a Guarda</a> do seu personagem.</li>
+<li>Role para os <a href="#tracos">Traços</a> do seu personagem.</li>
+<li>Role para o <a href="#antecedentes">Histórico</a> do seu personagem e itens relacionados.</li>
+<li>Role para a <a href="#armas">Arma e Armadura</a> do seu personagem.</li>
+<li>Role para um <a href="#equipamento-adicional">Equipamento Adicional</a> para completar o equipamento inicial do seu personagem.</li>
+<li>Compre quaisquer itens adicionais que seu personagem possa pagar no <a href="#mercado">Mercado</a>.</li>
+</ol>
+
+<h3 id="nomes">Nomes (d100)</h3>
+<p>Role um d100 para o nome próprio e outro para o sobrenome.</p>
+<ol class="names">
+<li>Adair<span>Abbot</span></li><li>Alaric<span>Addyman</span></li><li>Alder<span>Ashwell</span></li><li>Amaris<span>Balfe</span></li><li>Anwen<span>Baxter</span></li>
+<li>Arlo<span>Bevan</span></li><li>Ash<span>Beran</span></li><li>Aster<span>Blackwood</span></li><li>Ballad<span>Bowen</span></li><li>Barley<span>Brewer</span></li>
+<li>Basil<span>Broder</span></li><li>Beatrix<span>Bukharin</span></li><li>Birch<span>Cadwallan</span></li><li>Bram<span>Carter</span></li><li>Briar<span>Cobb</span></li>
+<li>Brook<span>Collier</span></li><li>Bryn<span>Cooper</span></li><li>Cai<span>Crowther</span></li><li>Callan<span>Dempsey</span></li><li>Carver<span>Dermody</span></li>
+<li>Cedric<span>Domański</span></li><li>Cinder<span>Dymov</span></li><li>Cliff<span>Fairweather</span></li><li>Corin<span>Fedorov</span></li><li>Crow<span>Fletcher</span></li>
+<li>Dain<span>Fuller</span></li><li>Darnel<span>Galen</span></li><li>Dax<span>Glinka</span></li><li>Dorian<span>Glover</span></li><li>Eira<span>Golubov</span></li>
+<li>Elowen<span>Gradnik</span></li><li>Ember<span>Granger</span></li><li>Eon<span>Grobar</span></li><li>Evander<span>Halberg</span></li><li>Falcon<span>Harkin</span></li>
+<li>Faris<span>Hlebar</span></li><li>Fern<span>Hromada</span></li><li>Finch<span>Horgan</span></li><li>Flint<span>Iliev</span></li><li>Freya<span>Ivanec</span></li>
+<li>Gale<span>Joryn</span></li><li>Garen<span>Kamensk</span></li><li>Hazel<span>Kavanagh</span></li><li>Hemlock<span>Kovac</span></li><li>Idris<span>Kovalenko</span></li>
+<li>Ivy<span>Kravec</span></li><li>Juniper<span>Krznar</span></li><li>Kael<span>Kuchar</span></li><li>Kavi<span>Kvasnikov</span></li><li>Keir<span>Lethbridge</span></li>
+<li>Leif<span>Llewellyn</span></li><li>Liora<span>Locke</span></li><li>Lucan<span>Lovett</span></li><li>Lyra<span>Lukanov</span></li><li>Lysander<span>Maddox</span></li>
+<li>Marius<span>Malinov</span></li><li>Marlowe<span>Marinov</span></li><li>Milo<span>Markov</span></li><li>Moss<span>Mason</span></li><li>Nazira<span>Melnik</span></li>
+<li>Neria<span>Mercer</span></li><li>Noa<span>Milner</span></li><li>Nyx<span>Morozov</span></li><li>Onyx<span>Novak</span></li><li>Orla<span>Obradov</span></li>
+<li>Pan<span>O'Callaghan</span></li><li>Patch<span>O'Farrell</span></li><li>Perran<span>O'Leary</span></li><li>Quill<span>Osipov</span></li><li>Rain<span>Pavlenko</span></li>
+<li>Reed<span>Pekar</span></li><li>River<span>Petrov</span></li><li>Robin<span>Pisarev</span></li><li>Rowan<span>Powell</span></li><li>Rune<span>Price</span></li>
+<li>Rush<span>Radoslav</span></li><li>Rye<span>Reeve</span></li><li>Sable<span>Rogov</span></li><li>Sage<span>Romanov</span></li><li>Selene<span>Rowanfield</span></li>
+<li>Shade<span>Rybak</span></li><li>Silas<span>Sawyer</span></li><li>Sky<span>Shepherd</span></li><li>Soren<span>Shevchenko</span></li><li>Sparrow<span>Slater</span></li>
+<li>Stellan<span>Smirnov</span></li><li>Stone<span>Sokolov</span></li><li>Storm<span>Tanner</span></li><li>Talon<span>Thatcher</span></li><li>Thistle<span>Tallow</span></li>
+<li>Thorn<span>Vukovic</span></li><li>Thresh<span>Webb</span></li><li>Valen<span>Whitlock</span></li><li>Vesper<span>Wicklowe</span></li><li>Vex<span>Wightman</span></li>
+<li>Willow<span>Wilkin</span></li><li>Winslow<span>Wright</span></li><li>Wisp<span>Wynne</span></li><li>Wren<span>Yarrow</span></li><li>Yarrow<span>Zidar</span></li>
+</ol>
+
+<h3 id="atributos">Atributos e Guarda</h3>
+<ul>
+<li><b>Atributos:</b> role 3d6 para cada um dos Atributos do seu personagem (Força (FOR), Destreza (DES) e Força de Vontade (VON)), em ordem. Você pode então trocar de posição dois resultados quaisquer.</li>
+<li><b>Guarda:</b> role 1d6 para determinar a Guarda inicial do seu PJ.</li>
+</ul>
+
+<h3 id="tracos">Traços (d10)</h3>
+<p>Role na tabela a seguir para definir os Traços do seu personagem.</p>
+<div class="tr">
+<div><h5>Físico</h5><ol class="d"><li>Atlético</li><li>Baixo</li><li>Corpulento</li><li>Escultural</li><li>Esguio</li><li>Flácido</li><li>Imponente</li><li>Magricela</li><li>Musculoso</li><li>Robusto</li></ol></div>
+<div><h5>Pele</h5><ol class="d"><li>Bronzeada</li><li>Castigada</li><li>Com cicatrizes</li><li>Com marca de nascença</li><li>Escamosa</li><li>Macia</li><li>Marcada</li><li>Oleosa</li><li>Rosada</li><li>Tatuada</li></ol></div>
+<div><h5>Cabelo</h5><ol class="d"><li>Cacheado</li><li>Careca</li><li>Crespo</li><li>Imundo</li><li>Longo</li><li>Luxuoso</li><li>Oleoso</li><li>Ondulado</li><li>Ralo</li><li>Trançado</li></ol></div>
+<div><h5>Rosto</h5><ol class="d"><li>Afiado</li><li>Alongado</li><li>Atrevido</li><li>Encovado</li><li>Esculpido</li><li>Ossudo</li><li>Pálido</li><li>Perfeito</li><li>Quadrado</li><li>Quebrado</li></ol></div>
+<div><h5>Fala</h5><ol class="d"><li>Áspera</li><li>Brusca</li><li>Enigmática</li><li>Estridente</li><li>Formal</li><li>Gaguejante</li><li>Monótona</li><li>Precisa</li><li>Retumbante</li><li>Sussurrante</li></ol></div>
+<div><h5>Roupas</h5><ol class="d"><li>Antiga</li><li>Cafona</li><li>Elegante</li><li>Ensanguentada</li><li>Esfarrapada</li><li>Estrangeira</li><li>Imunda</li><li>Libré</li><li>Rançosa</li><li>Suja</li></ol></div>
+<div><h5>Virtude</h5><ol class="d"><li>Ambicioso</li><li>Cauteloso</li><li>Corajoso</li><li>Disciplinado</li><li>Honrado</li><li>Humilde</li><li>Misericordioso</li><li>Sereno</li><li>Sociável</li><li>Tolerante</li></ol></div>
+<div><h5>Vício</h5><ol class="d"><li>Agressivo</li><li>Amargo</li><li>Covarde</li><li>Enganador</li><li>Ganancioso</li><li>Nervoso</li><li>Preguiçoso</li><li>Rude</li><li>Vaidoso</li><li>Vingativo</li></ol></div>
+</div>
+
+<h3 id="antecedentes">Antecedentes (d100)</h3>
+<p>Role na tabela a seguir para determinar o Antecedente do seu personagem. Depois pense em 3 itens, comuns ou incomuns, que poderiam estar em posse do personagem de acordo com seu Antecedente e anote-os em seu inventário. Trabalhe junto do Guardião para adequar esses itens aos limites da fantasia e do escopo do jogo.</p>
+<ol class="d">
+<li>Acendedor de Lampiões</li><li>Acólito</li><li>Acrobata</li><li>Açougueiro</li><li>Agricultor</li><li>Alfaiate</li><li>Alquimista</li><li>Apicultor</li><li>Apostador</li><li>Arauto</li>
+<li>Artista</li><li>Assassino</li><li>Astrólogo</li><li>Barbeiro-Cirurgião</li><li>Bedel</li><li>Bibliotecário</li><li>Bobo da Corte</li><li>Boticário</li><li>Bruxa</li><li>Caçador</li>
+<li>Caçador de Bruxas</li><li>Caçador de Ratos</li><li>Caçador de Recompensas</li><li>Carcereiro</li><li>Carpinteiro</li><li>Carrasco</li><li>Cartógrafo</li><li>Cavaleiro</li><li>Cavalariço</li><li>Charlatão</li>
+<li>Chaveiro</li><li>Cobrador de Pedágio</li><li>Coletor de Impostos</li><li>Coletor de Óleo</li><li>Coletor de Sanguessugas</li><li>Contrabandista</li><li>Coveiro</li><li>Cozinheiro</li><li>Cuidador de Pássaros</li><li>Cultista</li>
+<li>Curtidor</li><li>Demolidor</li><li>Duelista</li><li>Encadernador</li><li>Eremita</li><li>Escriba</li><li>Espião</li><li>Estalajadeiro</li><li>Fabricante de Brinquedos</li><li>Fabricante de Carroças</li>
+<li>Fabricante de Velas</li><li>Falcoeiro</li><li>Ferreiro</li><li>Filósofo</li><li>Flecheiro</li><li>Funileiro</li><li>Guarda</li><li>Herborista</li><li>Ilusionista</li><li>Jardineiro</li>
+<li>Joalheiro</li><li>Ladrão</li><li>Lenhador</li><li>Limpador de Chaminés</li><li>Limpador de Fossas</li><li>Marinheiro</li><li>Mascate</li><li>Médico</li><li>Mensageiro</li><li>Mercador</li>
+<li>Mineiro</li><li>Moleiro</li><li>Monge</li><li>Músico</li><li>Naturalista</li><li>Navegador</li><li>Oleiro</li><li>Padeiro</li><li>Pastor</li><li>Pedreiro</li>
+<li>Peregrino</li><li>Pescador</li><li>Pintor</li><li>Pregador de Rua</li><li>Prospector</li><li>Radiestesista</li><li>Receptador</li><li>Relojoeiro</li><li>Sacerdote</li><li>Salteador</li>
+<li>Sapateiro</li><li>Sineiro</li><li>Soldado</li><li>Soprador de Vidro</li><li>Tanoeiro</li><li>Taverneiro</li><li>Tecelão</li><li>Vagabundo</li><li>Vinicultor</li><li>Zelador de Cripta</li>
+</ol>
+
+<h3 id="armas">Armas e armaduras</h3>
+<p>Todos os PJs começam com o seguinte equipamento: <b>3d6 Peças de Ouro</b>, <b>Rações</b> (3 usos) e <b>Tocha</b> (3 usos).</p>
+<p>Além disso, role nas tabelas a seguir para armas, armaduras e equipamento adicional do seu personagem.</p>
+<div class="scroll"><table>
+<caption>Armas (d6)</caption>
+<thead><tr><th>d6</th><th>Arma</th></tr></thead>
+<tbody>
+<tr><td class="n">1</td><td>Adaga, Tacape, Foice, Cajado, etc. (1d6 de dano)</td></tr>
+<tr><td class="n">2</td><td>Lança, Espada, Maça, Machado, Mangual, etc. (1d8 de dano)</td></tr>
+<tr><td class="n">3</td><td>Alabarda, Martelo de Guerra, Espada Longa, etc. (1d10 de dano)</td></tr>
+<tr><td class="n">4</td><td>Funda (1d6 de dano)</td></tr>
+<tr><td class="n">5</td><td>Arco (1d6 de dano, volumoso)</td></tr>
+<tr><td class="n">6</td><td>Besta (1d8 de dano, volumoso)</td></tr>
+</tbody></table></div>
+<div class="scroll"><table>
+<caption>Armadura (d6)</caption>
+<thead><tr><th>d6</th><th>Armadura</th></tr></thead>
+<tbody>
+<tr><td class="n">1</td><td>Nenhuma. Role para Equipamento Adicional.</td></tr>
+<tr><td class="n">2</td><td>Escudo (+1 Armadura)</td></tr>
+<tr><td class="n">3</td><td>Capacete (+1 Armadura)</td></tr>
+<tr><td class="n">4</td><td>Gambeson (+1 Armadura)</td></tr>
+<tr><td class="n">5</td><td>Cota de Malha (2 Armadura)</td></tr>
+<tr><td class="n">6</td><td>Armadura de Placas (3 Armadura)</td></tr>
+</tbody></table></div>
+
+<h3 id="equipamento-adicional">Equipamento adicional (d100)</h3>
+<ol class="d">
+<li>Acônito</li><li>Ácido</li><li>Alaúde</li><li>Alcatrão</li><li>Álcool</li><li>Algemas</li><li>Alicate</li><li>Ampulheta</li><li>Antitoxina</li><li>Apito (miúdo)</li>
+<li>Armadilha (1d6 de dano FOR)</li><li>Artemísia</li><li>Balde</li><li>Bandagens (3 usos)</li><li>Bandeira de Sinalização</li><li>Bexiga Natatória</li><li>Bolinhas de Gude</li><li>Bolsa de Oleado</li><li>Bolsa Impermeável</li><li>Bomba de Fumaça</li>
+<li>Botas com Cravos</li><li>Bússola</li><li>Cachimbo</li><li>Cadeado e Chave</li><li>Cancioneiro</li><li>Capa (miúdo)</li><li>Carroça (+4 espaços, volumoso)</li><li>Carroção (+8 espaços, lento)</li><li>Cartas</li><li>Cinzel</li>
+<li>Cobertor</li><li>Cola</li><li>Corda (7,5m)</li><li>Corrente (3m)</li><li>Corta-vergalhões</li><li>Dados</li><li>Escada (3m)</li><li>Espelho</li><li>Espigões de Escalada</li><li>Estilete</li>
+<li>Estrepes</li><li>Explosivo</li><li>Farinha</li><li>Fole</li><li>Furadeira Manual</li><li>Gaiola</li><li>Gancho de Escalada</li><li>Garrafa Selável</li><li>Garrote</li><li>Gazua</li>
+<li>Giz</li><li>Graxa</li><li>Grimório Aleatório</li><li>Incenso</li><li>Kit de Costura</li><li>Lanterna</li><li>Lata de Óleo (6 usos)</li><li>Lente</li><li>Leque</li><li>Lima de Metal</li>
+<li>Luneta</li><li>Lupa</li><li>Luvas</li><li>Magnetita</li><li>Martelo</li><li>Máscara</li><li>Mel</li><li>Óculos de Proteção</li><li>Óleo Incendiário</li><li>Pá</li>
+<li>Pé de Cabra</li><li>Pedra de Amolar</li><li>Perfume</li><li>Pergaminho de Magia Aleatória</li><li>Pergaminho e Tinta (3 usos)</li><li>Peruca</li><li>Picareta</li><li>Pinça</li><li>Polia</li><li>Poncho (miúdo)</li>
+<li>Pó de Flash</li><li>Rabeca</li><li>Rede</li><li>Rede de Dormir</li><li>Saco</li><li>Sangue de Troll (restaura 1d4 FOR; pode causar mutações)</li><li>Sedativo</li><li>Serra</li><li>Sextante</li><li>Sino</li>
+<li>Tenda (cabem 2)</li><li>Tesoura</li><li>Tigela</li><li>Tinta</li><li>Vara (3m)</li><li>Vara de Pescar</li><li>Varinha de Rabdomante</li><li>Vela (3 usos)</li><li>Veneno</li><li>Ervas de Fumo (3 usos)</li>
+</ol>
+</section>
+
+<!-- PACOTES -->
+<section id="pacotes">
+<h2>Pacotes de equipamentos por arquétipo</h2>
+<div class="packs">
+<div class="pack"><h4>Bardo</h4><ul>
+<li>3d6 Peças de Ouro</li><li>Tocha (3 usos)</li><li>Rações (3 usos)</li><li>Cartas ou Dados</li><li>Artigos de Disfarce</li><li>Instrumento Arcano (Feitiço: Pacificar ou Sono)</li><li>Gibão (1 Armadura)</li><li>Manuscritos (Canções e Sátiras)</li><li>Arma corpo a corpo (d6)</li></ul></div>
+<div class="pack"><h4>Caçador</h4><ul>
+<li>3d6 Peças de Ouro</li><li>Tocha (3 usos)</li><li>Rações (3 usos)</li><li>Armadilha de Urso (d6 dano de FOR)</li><li>Arco (d6)</li><li>Machadinha (d6)</li><li>Cão de Caça (2 GD, 12 DES, mordida d6)</li><li>Peles Espessas (1 Armadura)</li><li>Corneta de Caça (o inimigo predileto do caçador tem os ataques prejudicados na primeira rodada)</li></ul></div>
+<div class="pack"><h4>Curandeiro</h4><ul>
+<li>3d6 Peças de Ouro</li><li>Tocha (3 usos)</li><li>Rações (3 usos)</li><li>2 × Bandagens (3 usos)</li><li>Utensílios de Cozinha</li><li>Ervas Medicinais (Antitoxina, 3 usos)</li><li>Arma corpo a corpo (d6)</li><li>Cachimbo e Fumo</li><li>Livro de Feitiço: Curar Ferimentos</li></ul></div>
+<div class="pack"><h4>Guerreiro</h4><ul>
+<li>3d6 Peças de Ouro</li><li>Tocha (3 usos)</li><li>Rações (3 usos)</li><li>Elmo (+1 Armadura)</li><li>Armadura (escolha qualquer)</li><li>Escudo (+1 Armadura)</li><li>Arma Obra-Prima (escolha qualquer)</li><li>3 × Adagas de Arremesso (d6)</li><li>Besta (d8)</li><li>Pedra de Amolar</li></ul></div>
+<div class="pack"><h4>Ladrão</h4><ul>
+<li>3d6 Peças de Ouro</li><li>Tocha (3 usos)</li><li>Rações (3 usos)</li><li>Estrepes Afiados (d6 dano de DES)</li><li>Capa e Capuz Escuros</li><li>Gancho de Escalada</li><li>Corda (7,5m)</li><li>Ferramentas de Ladrão</li><li>Adagas Dobráveis Gêmeas (d6+d6)</li></ul></div>
+<div class="pack"><h4>Mago</h4><ul>
+<li>3d6 Peças de Ouro</li><li>Rações (3 usos)</li><li>Giz</li><li>3 × Vela</li><li>Diário</li><li>Faca (d6) ou Cajado (d6)</li><li>Pergaminho e Tinta (3 usos)</li><li>Medalhão Arcano: Detectar Magia</li><li>Livro de Feitiço: Iluminar</li><li>2 × Livro de Feitiço: Aleatório</li></ul></div>
+</div>
+</section>
+
+<!-- MERCADO -->
+<section id="mercado">
+<h2>Mercado</h2>
+<div class="note"><p>Todos os preços são em <b>moedas de prata</b>. Nesta edição, a prata é a moeda corrente, para valorizar qualquer ouro encontrado nas aventuras. Trate uma moeda de prata como algo próximo do salário diário de um trabalhador comum.</p></div>
+
+<h4>Armaduras</h4>
+<ul class="price">
+<li>Escudo (+1 Armadura)<b>10</b></li><li>Capacete (+1 Armadura)<b>10</b></li><li>Gibão (+1 Armadura)<b>20</b></li><li>Brigandina (1 Armadura, volumoso)<b>30</b></li><li>Cota de Malha (2 Armadura, volumoso)<b>90</b></li><li>Armadura de Placas (3 Armadura, volumoso)<b>120</b></li>
+</ul>
+
+<h4>Armas</h4>
+<ul class="price">
+<li>Adaga, Tacape, Foice, Cajado, etc. (d6 de dano)<b>5~10</b></li><li>Lança, Espada, Maça, Machado, Mangual, etc. (d8 de dano)<b>20</b></li><li>Alabarda, Martelo de Guerra, Espada Longa, etc. (d10 de dano, volumoso)<b>30</b></li><li>Funda (d6 de dano)<b>2</b></li><li>Arco (d6 de dano, volumoso)<b>15</b></li><li>Besta (d8 de dano, volumoso)<b>30</b></li>
+</ul>
+
+<h4>Transporte</h4>
+<ul class="price">
+<li>Carroça (+4 espaços, volumoso)<b>30</b></li><li>Carroção (+8 espaços, lento)<b>200</b></li><li>Cavalo (+4 espaços)<b>90</b></li><li>Mula (+6 espaços, lento)<b>30</b></li><li>Assento em Carruagem (viagem curta)<b>5</b></li><li>Passagem de Navio<b>10</b></li>
+</ul>
+
+<h4>Acomodações &amp; recuperação</h4>
+<ul class="price">
+<li>Quarto &amp; Pensão (por noite)<b>2</b></li><li>Quarto Privativo &amp; Pensão (cabe 4)<b>12</b></li><li>Estábulo &amp; Ração Animal (por noite)<b>1</b></li><li>Cura Médica<b>30</b></li><li>Rações (3 usos)<b>5</b></li><li>Ração Animal (3 usos, volumoso)<b>2</b></li>
+</ul>
+
+<h4>Contratados &amp; mercenários</h4>
+<ul class="price">
+<li>Alquimista<b>30</b></li><li>Chaveiro<b>5</b></li><li>Batedor<b>5</b></li><li>Caçador<b>5</b></li><li>Erudito<b>20</b></li><li>Ferreiro<b>15</b></li><li>Guarda-costas<b>10</b></li><li>Guarda-costas Veterano<b>20</b></li><li>Guia Local<b>5</b></li><li>Marinheiro<b>5</b></li><li>Navegador<b>10</b></li><li>Treinador de Animais<b>5</b></li>
+</ul>
+
+<h4>Equipamento em geral</h4>
+<ul class="price">
+<li>Antitoxina<b>20</b></li><li>Apito (miúdo)<b>1</b></li><li>Armadilha (d6 dano de FOR)<b>20</b></li><li>Artigos de Banho (sabão, perfume, etc.)<b>5</b></li><li>Artigos de Disfarce (tinta facial, disfarce)<b>15</b></li><li>Bandagens (3 usos)<b>20</b></li><li>Baralho de Cartas<b>5</b></li><li>Baú<b>25</b></li><li>Bóia<b>5</b></li><li>Botas com Cravos<b>15</b></li>
+<li>Bússola<b>75</b></li><li>Cachimbo (miúdo)<b>5</b></li><li>Cinzel<b>5</b></li><li>Conforto ao Ar Livre (cobertor, rede, etc.)<b>10</b></li><li>Corda (7,5m)<b>5</b></li><li>Corrente (3m)<b>15</b></li><li>Equipamento de Expedição (espigões de escalada, polia, etc.)<b>15</b></li><li>Espelho<b>10</b></li><li>Estrepes<b>10</b></li><li>Ferramentas Comuns (martelo, pá, etc.)<b>5</b></li>
+<li>Ferramentas de Ladrão (gazua, lima de metal, etc.)<b>30</b></li><li>Ferramentas Especializadas (tinta, etc.)<b>30</b></li><li>Gancho de Escalada<b>5</b></li><li>Giz (miúdo)<b>1</b></li><li>Instrumentos Complexos (gaita de foles, rabeca, etc.)<b>50</b></li><li>Instrumentos Simples (flautas, alaúde, etc.)<b>20</b></li><li>Jogos<b>10</b></li><li>Kit de Costura<b>10</b></li><li>Lanterna<b>10</b></li><li>Lata de Óleo (6 usos)<b>10</b></li>
+<li>Livro<b>50</b></li><li>Luneta<b>40</b></li><li>Luvas (miúdo)<b>10</b></li><li>Óleo Incendiário<b>10</b></li><li>Pergaminho (3 usos)<b>30</b></li><li>Recipientes (saco, odre, etc.)<b>10</b></li><li>Rede<b>10</b></li><li>Repelente (acônito, artemísia, etc.)<b>15</b></li><li>Roupas de Ermos (poncho, capa, etc.) (miúdo)<b>15</b></li><li>Sedativo<b>30</b></li>
+<li>Substâncias Comuns (cola, graxa, etc.)<b>10</b></li><li>Tenda (cabe 2, volumoso)<b>20</b></li><li>Tocha (3 usos)<b>2</b></li><li>Utensílios de Cozinha (panelas, talheres, etc.)<b>20</b></li><li>Vara (3m)<b>2</b></li><li>Vara de Pescar<b>5</b></li><li>Varinha de Rabdomante<b>15</b></li>
+</ul>
+</section>
+
+<!-- LIVROS DE FEITIÇO -->
+<section id="feiticos">
+<h2>Livros de feitiço (d100)</h2>
+<p>Cada entrada traz o nome do feitiço, o que ele faz e, em itálico, a peculiaridade do livro que o guarda.</p>
+<ol class="spells">
+<li><b>Aderir</b><span>Um objeto é coberto por um lodo extremamente pegajoso.</span><em>Objetos adjacentes grudam no livro com grande força.</em></li>
+<li><b>Amarra Invisível</b><span>Dois objetos a até 3 metros um do outro não podem ser movidos para mais de 3 metros de distância.</span><em>Suas páginas não são unidas por cola ou linha, mas permanecem juntas mesmo assim.</em></li>
+<li><b>Amenizador Arcano</b><span>Todos os efeitos mágicos próximos têm sua eficácia reduzida pela metade.</span><em>Relíquias a até 30 metros do livro de feitiços não podem ser recarregadas.</em></li>
+<li><b>Âncora</b><span>Um fio forte brota dos seus braços fixando-se a dois pontos a até 15 metros de cada lado.</span><em>Se uma corda for puxada pelo passador de ferro em sua lombada, ele se torna tão pesado quanto um elefante.</em></li>
+<li><b>Animar Objeto</b><span>Um objeto obedece aos seus comandos da melhor forma possível.</span><em>Moldável como argila. Risadas infantis brotam de suas páginas.</em></li>
+<li><b>Antropomorfizar</b><span>Um animal ganha inteligência humana ou aparência humana por um dia.</span><em>Choraminga, ronrona e rosna dependendo do tratamento.</em></li>
+<li><b>Apagar</b><span>A fonte de qualquer luz mundana que você possa ver é instantaneamente apagada.</span><em>Se deixado em um local por longos períodos, fontes de luz próximas acabam enfraquecendo e por fim se apagam.</em></li>
+<li><b>Ar Líquido</b><span>O ar ao seu redor se torna nadável.</span><em>Flutua por vontade própria, quicando em tudo que toca.</em></li>
+<li><b>Atrair</b><span>Dois objetos são fortemente atraídos magneticamente um pelo outro se chegarem a 3 metros de distância.</span><em>Bússolas próximas giram inutilmente.</em></li>
+<li><b>Balbuciar</b><span>Uma criatura deve repetir alta e claramente tudo o que você pensar. De outra forma é muda.</span><em>Quando o texto é lido em voz alta, as palavras de outros se tornam ininteligíveis.</em></li>
+<li><b>Bosque</b><span>Um bosque de árvores e arbustos densos com até 15 metros de extensão brota subitamente.</span><em>Envolto em trepadeiras que devem ser destruídas novamente a cada uso.</em></li>
+<li><b>Buraco</b><span>Um buraco com 3 metros de largura e 3 metros de profundidade se abre no chão.</span><em>Uma corda e gancho podem ser guardados com segurança dentro do livro.</em></li>
+<li><b>Caminhar no Espelho</b><span>Um espelho se torna um portal para outro espelho no qual você tenha olhado na última semana.</span><em>Não se abre a menos que o dono bata educadamente na capa.</em></li>
+<li><b>Comando</b><span>Um alvo obedece a um único comando de até três palavras, que não lhe cause dano.</span><em>Vai ficando mais fino com o tempo até finalmente desaparecer para sempre.</em></li>
+<li><b>Compreender</b><span>Você se torna fluente em todas as línguas por um curto período de tempo.</span><em>Pinga letras, manchando o que toca.</em></li>
+<li><b>Cone de Espuma</b><span>Uma espuma densa e escorregadia espirra de sua mão cobrindo uma área de até 15 metros.</span><em>Esponjosa e úmida, com um resíduo de sabão.</em></li>
+<li><b>Controlar Visão</b><span>Você controla completamente o que uma criatura alvo vê.</span><em>Um olho enervante e sem pálpebras adorna a capa frontal.</em></li>
+<li><b>Confundir</b><span>Uma criatura de sua escolha é incapaz de formar novas memórias de curto prazo pela duração do feitiço.</span><em>Seu conteúdo muda e se altera a cada vez que é aberto.</em></li>
+<li><b>Controlar o Clima</b><span>Você pode alterar o tipo de clima da região à vontade.</span><em>A temperatura ao toque oscila bruscamente.</em></li>
+<li><b>Controlar Plantas</b><span>Plantas e árvores próximas obedecem a você e ganham a habilidade de se mover em ritmo lento.</span><em>Folhas crescem ao longo da lombada e têm um leve cheiro de decomposição.</em></li>
+<li><b>Controle do Tempo</b><span>O tempo em uma bolha de 15 metros desacelera ou acelera por 30 segundos.</span><em>Alterna sua aparência entre incrivelmente velho ou recém-escrito.</em></li>
+<li><b>Curar Ferimentos</b><span>Restaura 1d4 de FOR por dia de uma criatura que você possa tocar.</span><em>Cheira a vinagre e tomilho.</em></li>
+<li><b>Deslocar</b><span>Um objeto parece estar até 5 metros de sua posição real.</span><em>Objetos estranhos e pequenos às vezes são encontrados dentro dele.</em></li>
+<li><b>Desmontar</b><span>Qualquer parte do seu corpo pode ser destacada e recolocada à vontade sem causar dor ou dano. Você ainda pode controlá-las.</span><em>Regenera quaisquer páginas rasgadas ou desfiguradas.</em></li>
+<li><b>Destrancar</b><span>Uma fechadura mundana ou mágica próxima é destrancada em um estalo alto.</span><em>Trancado. Um novo dono “produz” a chave após sua próxima refeição.</em></li>
+<li><b>Detectar Magia</b><span>Você pode ver ou ouvir auras mágicas próximas.</span><em>Fica quente ao toque se houver magia por perto.</em></li>
+<li><b>Disfarce</b><span>Você pode alterar a aparência de um personagem à vontade, permanecendo humanoide. Tentativas de duplicar outros personagens parecerão estranhas.</span><em>A superfície é um espelho perfeito.</em></li>
+<li><b>Elasticidade</b><span>Seu corpo pode se esticar em até 5 metros.</span><em>Tem cheiro de caramelo e é muito flexível.</em></li>
+<li><b>Embaralhar</b><span>Duas criaturas que você possa ver trocam de lugar instantaneamente.</span><em>Se roubado, mas ainda não lido, reaparece onde seu dono o deixou por último.</em></li>
+<li><b>Empurrar/Puxar</b><span>Um objeto de qualquer tamanho é puxado diretamente em sua direção ou empurrado diretamente para longe de você com a força de um homem forte.</span><em>Qualquer força contra o livro é comicamente amplificada.</em></li>
+<li><b>Enfeitiçar</b><span>Uma criatura que você possa ver o trata como um amigo.</span><em>Exala o cheiro preferido do possuidor.</em></li>
+<li><b>Engenhoca</b><span>Uma versão pouco elaborada de uma ferramenta ou item desenhado aparece diante de você e desaparece após alguns minutos.</span><em>Tem cheiro de ferro e ferrugem, suor e esforço. Sons fracos de trabalho pesado emanam das profundezas de suas páginas.</em></li>
+<li><b>Ensurdecer</b><span>Todas as criaturas próximas ficam momentaneamente surdas.</span><em>Instrumentos próximos tocam de vez em quando, como se em protesto.</em></li>
+<li><b>Enxame</b><span>Você se torna um enxame de corvos, ratos ou piranhas. Você só pode ser ferido por ataques de área (explosão).</span><em>Facilmente dividido em doze partes distintas que se movem lentamente umas em direção às outras ao longo do tempo.</em></li>
+<li><b>Erguer Espírito</b><span>O espírito de um cadáver próximo se manifesta e responderá a 1 pergunta.</span><em>As respostas (mas não as perguntas) ficam inscritas para sempre em suas páginas.</em></li>
+<li><b>Erguer os Mortos</b><span>Um esqueleto se ergue da terra para servi-lo. Eles são incrivelmente estúpidos e só podem obedecer a ordens simples.</span><em>O dono fica cada vez mais fascinado pela morte e seus símbolos a cada uso.</em></li>
+<li><b>Escalar como Aranha</b><span>Você pode escalar superfícies como uma aranha.</span><em>Teias surgem entre as páginas e grudam nas mãos e objetos.</em></li>
+<li><b>Escorregadio</b><span>Toda superfície num raio de 10 metros se torna extremamente escorregadia.</span><em>É preciso usar luvas para manuseá-lo, para evitar que o livro caia de forma cômica.</em></li>
+<li><b>Esculpir Elementos</b><span>Material inanimado se comporta como argila em suas mãos.</span><em>Apodrece lentamente em contato com madeira ou tecido. Enterre na terra ou mergulhe na água para renová-lo.</em></li>
+<li><b>Escudo</b><span>Uma criatura que você toca fica protegida contra ataques mundanos por um minuto, envolta em um escudo invisível.</span><em>Encadernado em cota de malha enferrujada e é bem pesado. Se empunhado, concede +1 de Armadura.</em></li>
+<li><b>Esfera Noturna</b><span>Uma esfera de escuridão com 15 metros de largura exibindo o céu noturno surge onde você apontar.</span><em>Exibe constelações brilhantes na capa, que se alteram.</em></li>
+<li><b>Farejar</b><span>Você consegue sentir até mesmo os vestígios mais sutis de cheiros, mesmo a longas distâncias.</span><em>Exala um odor forte perceptível apenas pelo dono.</em></li>
+<li><b>Flor Isca</b><span>Uma planta brota do chão exalando um cheiro muito atraente para o tipo de criatura que você determinar.</span><em>Atrai moscas.</em></li>
+<li><b>Fobia</b><span>Uma criatura próxima fica aterrorizada com um objeto de sua escolha.</span><em>Com o tempo, artes assustadoras e abstratas começam a preencher suas páginas.</em></li>
+<li><b>Forma de Besta</b><span>Você e suas posses se transformam em um animal mundano.</span><em>Coberto de pelos grossos, com as bordas cheias de dentes pequenos.</em></li>
+<li><b>Forma de Fumaça</b><span>Seu corpo se torna uma fumaça viva, que você pode controlar.</span><em>Cheiro de fogueira. As páginas não podem ser queimadas, mas são muito sensíveis à umidade.</em></li>
+<li><b>Forma de Limo</b><span>Você se torna uma geleia viva.</span><em>Goteja lentamente um ácido que acaba devorando tudo que toca.</em></li>
+<li><b>Frenesi</b><span>Uma criatura próxima entra em um frenesi de violência.</span><em>Capa áspera de lixa que destrói com o tempo objetos que toca.</em></li>
+<li><b>Furtar</b><span>Um item visível se teletransporta para as suas mãos.</span><em>Um bem precioso de um aliado pode ocasionalmente ser encontrado escondido entre as suas capas.</em></li>
+<li><b>Ganância</b><span>Uma criatura desenvolve um desejo avassalador de possuir um item visível de sua escolha.</span><em>A capa muda de acordo com o dono, sugerindo sutilmente os seus desejos mais profundos.</em></li>
+<li><b>Hipnotizar</b><span>Uma criatura entra em transe e responderá com verdade a uma pergunta de sim ou não que você fizer.</span><em>Espirais hipnóticas adornam a capa e induzem ao sono.</em></li>
+<li><b>Iluminar</b><span>Uma luz flutuante que ilumina com a intensidade de até uma fogueira se move conforme você comanda.</span><em>Ilumina como uma vela enquanto é mantido com as páginas abertas.</em></li>
+<li><b>Ilusão Auditiva</b><span>Você cria sons ilusórios que parecem vir da direção à sua escolha.</span><em>Produz sons aleatórios e às vezes inoportunos ao longo do dia.</em></li>
+<li><b>Ilusão Visual</b><span>Cria uma ilusão silenciosa imóvel de algo à sua escolha que tenha até o tamanho de uma grande casa.</span><em>Cheio de páginas ricas e coloridas, muito semelhante a um conto infantil.</em></li>
+<li><b>Imagem Espelhada</b><span>Uma duplicata ilusória de você mesmo aparece e está sob o seu controle.</span><em>Com o tempo o dono começa a questionar quem é o original e quem é a duplicata.</em></li>
+<li><b>Isca de Alvo</b><span>Um objeto que você toca se torna o alvo de qualquer feitiço próximo.</span><em>Atrai todo tipo de criaturas mágicas, vazamentos de magias e vidências.</em></li>
+<li><b>Ler Mentes</b><span>Você consegue ouvir os pensamentos superficiais de criaturas próximas.</span><em>A posse a longo prazo pode fazer com que o leitor confunda os pensamentos de outras pessoas com os seus próprios.</em></li>
+<li><b>Loucura de Bolinhas de Vidro</b><span>Seus bolsos ficam cheios de bolinhas de vidro que se reabastecerão a cada 10 segundos.</span><em>Quando sacudido, faz um som engraçado de chocalho.</em></li>
+<li><b>Mansão</b><span>Uma cabana de madeira robusta e mobiliada aparece por algumas horas, sua porta é reforçada.</span><em>Se deixado lá dentro, tanto o livro quanto a cabana desaparecem para sempre.</em></li>
+<li><b>Marca de Feiticeiro</b><span>Seu dedo escreve com uma tinta especial. Você escolhe quem a vê. Você a enxerga de qualquer distância, mesmo através de objetos sólidos.</span><em>Na capa há um bolso que parece produzir tinta preta a cada dia.</em></li>
+<li><b>Máscara Arcana</b><span>A aparência e a voz de um personagem se tornam idênticas às de outro personagem que você tocar.</span><em>O uso prolongado faz o dono desenvolver tiques inconscientes e notáveis.</em></li>
+<li><b>Miniaturizar</b><span>Uma criatura que você tocar encolhe até o tamanho de um camundongo.</span><em>O texto é escrito em letras comicamente grandes.</em></li>
+<li><b>Mortalha</b><span>Uma criatura que você tocar fica invisível até se mover.</span><em>Invisível para qualquer um, exceto para o atual dono do livro.</em></li>
+<li><b>Mudança de Gravidade</b><span>Você pode mudar a direção da gravidade, mas apenas para si mesmo.</span><em>Objetos são atraídos para gravitar ao redor dele.</em></li>
+<li><b>Múltiplos Braços</b><span>Você temporariamente ganha um braço extra.</span><em>Após o uso, o conjurador é atormentado com a síndrome do membro fantasma por um dia.</em></li>
+<li><b>Nascente</b><span>Uma fonte de água do mar aparece.</span><em>Encadernação de couro endurecido coberto de sal e cracas vivas.</em></li>
+<li><b>Névoa</b><span>Uma névoa densa se espalha a partir de você.</span><em>Se submergido na água, o livro acaba transformando todo o líquido em vapor.</em></li>
+<li><b>Objetificar</b><span>Você se torna qualquer objeto inanimado entre o tamanho de um piano de cauda e uma maçã.</span><em>O dono sofre de intensa pareidolia por dias após o uso.</em></li>
+<li><b>Olho Arcano</b><span>Você consegue enxergar através de um globo ocular mágico flutuante que voa sob o seu comando.</span><em>Precisa de uma borrifada de água para abrir.</em></li>
+<li><b>Ordenar</b><span>Itens inanimados se organizam de acordo com categorias que você definir.</span><em>Coloca-se de pé sozinho quando largado ou atirado.</em></li>
+<li><b>Ódio</b><span>Uma criatura desenvolve um ódio profundo por outra criatura ou grupo e deseja destruí-los.</span><em>A exposição prolongada ao livro pode causar suspeita paranoica e desconfiança de outros, incluindo aliados.</em></li>
+<li><b>Ouvir Sussurros</b><span>Ao se concentrar você pode ouvir sons fracos claramente, mesmo à distância.</span><em>A voz do leitor é amplificada por um curto período após o uso.</em></li>
+<li><b>Pacificar</b><span>Uma criatura perto de você cria uma aversão à violência.</span><em>Cheiro de jasmim e incenso.</em></li>
+<li><b>Pairar</b><span>Um objeto paira sem atrito a 60 cm do chão. Pode suportar até um humanoide.</span><em>Flutua se solto.</em></li>
+<li><b>Parede Elemental</b><span>Uma parede reta de gelo, fogo, pedra ou vento com até 15 metros de comprimento e 3 metros de altura se ergue do chão.</span><em>Se recusa a escalar paredes ao ser transportado.</em></li>
+<li><b>Passagem</b><span>Cria um caminho temporário através de madeira, pedra ou tijolos.</span><em>Um objeto largado em cima do livro inevitavelmente cai do outro lado.</em></li>
+<li><b>Portal</b><span>Um portal para um plano aleatório se abre.</span><em>Um buraco grande é esculpido no centro, terminando em um vazio. Itens caídos ali nunca mais são vistos.</em></li>
+<li><b>Pressa</b><span>Sua velocidade de movimento é triplicada.</span><em>As páginas folheiam-se loucamente quando abertas.</em></li>
+<li><b>Prisão Astral</b><span>Um objeto é congelado no tempo e espaço dentro de uma concha de cristal invulnerável.</span><em>Silenciosas e abstratas faces gritam em angústia lá dentro.</em></li>
+<li><b>Proteção</b><span>Um círculo prateado de 15 metros de diâmetro aparece no chão. Escolha uma espécie que não possa atravessá-lo.</span><em>O livro não pode ser danificado de nenhuma forma conhecida.</em></li>
+<li><b>Pulmão de Peixe</b><span>Um alvo pode respirar debaixo d'água até vir à superfície novamente.</span><em>Exala um cheiro forte de mar. Atrai animais selvagens.</em></li>
+<li><b>Reparo Habilidoso</b><span>Você faz pequenos reparos em um objeto não vivo.</span><em>Costurado a partir de pergaminhos de cem livros, não há duas páginas iguais.</em></li>
+<li><b>Repelir</b><span>Dois objetos são fortemente repelidos magneticamente um do outro em um raio de 3 metros.</span><em>Fechado por duas tiras poderosas que se abrem sozinhas em momentos inoportunos.</em></li>
+<li><b>Revelar o Passado</b><span>Você pode tocar um objeto e ter um vislumbre de um breve momento do passado, dos últimos 7 dias, de cenas que se passaram ao redor do objeto tocado. Apenas imagens, sem sons.</span><em>O livro sussurra baixinho críticas ao passado do possuidor.</em></li>
+<li><b>Salto</b><span>Você pula até 10 metros de altura apenas uma vez.</span><em>Se arremessado, ele continua voando.</em></li>
+<li><b>Sentir Direção</b><span>Escolha um tipo de objeto (chave, ouro, flecha, jarro, etc.). Você pode sentir a presença deste objeto ao seu redor.</span><em>O dono anterior do livro está sempre ciente da sua localização atual.</em></li>
+<li><b>Serra Mágica</b><span>Uma serra mágica giratória surge diante de sua mão, capaz de serrar qualquer objeto. Ela é inofensiva em seres vivos.</span><em>Suas páginas são altamente cortantes.</em></li>
+<li><b>Sinalizador</b><span>Uma bola brilhante de energia atira um rastro de luz para o céu, revelando a sua localização para amigos ou inimigos.</span><em>Brilha fracamente na escuridão completa.</em></li>
+<li><b>Sono</b><span>Uma criatura que você possa ver cai num sono leve.</span><em>Macio como um travesseiro, mas gera apenas um sono inquieto.</em></li>
+<li><b>Surto de Risos</b><span>Criaturas em uma área de até 10 metros de raio são compelidas a rir descontroladamente.</span><em>O livro faz piadas de mau gosto em momentos inoportunos.</em></li>
+<li><b>Teia</b><span>Seus pulsos atiram teias grossas.</span><em>O texto é alienígena, embora de alguma forma inteligível, pois é o idioma dos sonhos.</em></li>
+<li><b>Telecinese</b><span>Você pode mover mentalmente 1 item de até 60 kg.</span><em>O dono pode invocar o livro apenas por comando mental.</em></li>
+<li><b>Telepatia</b><span>Duas criaturas podem ouvir os pensamentos uma da outra, não importa o quão distantes estejam.</span><em>O portador pode ouvir (mas não responder) os pensamentos de quem o possuiu por último e vice-versa.</em></li>
+<li><b>Teletransporte</b><span>Um objeto ou pessoa que você possa ver é transportado de um lugar para o outro dentro de um raio de 15 metros.</span><em>Pode ser destruído para criar um portal para outra dimensão.</em></li>
+<li><b>Terremoto</b><span>O chão começa a tremer violentamente. Estruturas podem ser danificadas ou desabar.</span><em>Areia escorre pelos cantos, aparentemente sem parar.</em></li>
+<li><b>Toque Gélido</b><span>Uma espessa camada de gelo se espalha sobre a superfície tocada em um raio de até 10 metros.</span><em>Incrivelmente gelado. Requer o uso de luvas.</em></li>
+<li><b>Traspassar Visão</b><span>Você pode ver através de paredes, terra, roupas etc.</span><em>Exposição de longo prazo pode causar queda de cabelo, visão embaçada e fadiga.</em></li>
+<li><b>Troca de Corpos</b><span>Você troca de corpo com uma criatura que tocar. Se um corpo morre, o outro morre também.</span><em>A capa frontal mostra uma imagem pálida da última criatura a lê-lo.</em></li>
+<li><b>Vidência</b><span>Você consegue enxergar pelos olhos de uma criatura em que você tocou mais cedo hoje.</span><em>Os olhos do dono ficam num tom de branco leitoso durante o uso. Um grande olho se move na capa, parecendo observar atentamente.</em></li>
+<li><b>Visão Verdadeira</b><span>Você enxerga através de qualquer ilusão, vê o que está magicamente invisível e enxerga mentiras como lama saindo da boca de quem a profere.</span><em>Não pode ser ocultado por magia e chama atenção como uma ferida exposta.</em></li>
+</ol>
+</section>
+
+<footer class="src" id="material-original">
+<h2 style="border-top:0;padding-top:0">Créditos e material original</h2>
+<p>Esta página reúne o texto de <b>Cairn: Edição Básica em Português</b> para consulta rápida. O PDF original traz as ilustrações, a ficha de personagem e a diagramação do livro.</p>
+<p><a class="btn" href="https://rafaarruda.itch.io/cairn-basico-ptbr" target="_blank" rel="noopener">
+<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m0 0l-5-5m5 5l5-5M4 20h16"/></svg>
+Baixar o PDF original no itch.io</a></p>
+<ul>
+<li>Escrito por <b>Yochai Gal</b>.</li>
+<li>Traduzido e editado por <b>Rafa Arruda</b>.</li>
+<li>Arte (capas e ficha) por <b>Castilho</b>.</li>
+<li>Cairn Edição Básica, v1.4, junho de 2026. Texto sob licença <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.pt-br" target="_blank" rel="noopener">CC BY-SA 4.0</a>.</li>
+</ul>
+<p class="small">Esta página é uma adaptação do material original, com mudanças de formatação e pequenas correções de grafia. Como o texto usa CC BY-SA 4.0, esta adaptação segue a mesma licença.</p>
+</footer>
+
+</main>
+</div>
+</div>
+
+<script>
+(function(){
+  var links=[].slice.call(document.querySelectorAll('.toc a[data-s]'));
+  var map={};
+  links.forEach(function(a){map[a.getAttribute('data-s')]=a});
+  if(!('IntersectionObserver' in window))return;
+  var mobile=window.matchMedia('(max-width:900px)');
+  var io=new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(!e.isIntersecting)return;
+      var a=map[e.target.id];
+      if(!a)return;
+      links.forEach(function(l){l.removeAttribute('aria-current')});
+      a.setAttribute('aria-current','true');
+      if(mobile.matches){
+        var ul=a.parentNode.parentNode;
+        ul.scrollLeft=a.parentNode.offsetLeft-ul.clientWidth/2+a.parentNode.clientWidth/2;
+      }
+    });
+  },{rootMargin:'-15% 0px -75% 0px'});
+  [].slice.call(document.querySelectorAll('main > section[id], main > footer[id]')).forEach(function(s){io.observe(s)});
+})();
+</script>
+
+<a class="cairn-home" href="index.html">← Ferramentas Cairn</a></body></html>
